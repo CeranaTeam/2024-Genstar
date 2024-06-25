@@ -17,8 +17,10 @@ router = APIRouter(
 @router.post("/medicine")
 async def medicine(request: AutocompleteMedicineRequest) -> AutocompleteMedicineResponse:
     try:
-        response = generate_medication_recommendation('none', request.diagnosis)
-        return AutocompleteMedicineResponse(medications=response)
+        medicine_suggestions = generate_medication_recommendation('none', request.diagnosis)
+        print("[medicine] medicine_suggestions")
+        print(medicine_suggestions)
+        return AutocompleteMedicineResponse(medicine_suggestions=medicine_suggestions, message="Success")
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 
