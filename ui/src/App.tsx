@@ -1,12 +1,13 @@
 import AutoCompleteTextArea from "@/components/AutoCompleteTextArea"
-import { Button } from "@/components/ui/button"
+import DiagnoseTextArea from "@/components/DiagnoseTextArea"
 
 function App() {
 
     return (
         <>
+            <DiagnoseTextArea />
             <AutoCompleteTextArea />
-            <Button />
+            {/* <Button /> */}
         </>
     )
 }
