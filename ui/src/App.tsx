@@ -1,6 +1,5 @@
 import AutoCompleteTextArea from "@/components/AutoCompleteTextArea"
-import Button from "@/components/Button"
-import './App.css'
+import { Button } from "@/components/ui/button"
 
 function App() {
 
