@@ -37,19 +37,19 @@ const frameworks = [
 ]
 
 export default function AutoCompleteTextArea() {
-  const [open, setOpen] = React.useState(false)
+  // const [open, setOpen] = React.useState(false)
   const [value, setValue] = React.useState("")
   const [search, setSearch] = React.useState("")
 
   // automatically open the list when the user starts typing
-  React.useEffect(() => {
-    if(value){
-        setOpen(true)
-    }
-    else{
-        setOpen(false)
-    }
-    }, [value])
+  // React.useEffect(() => {
+  //   if(value){
+  //       setOpen(true)
+  //   }
+  //   else{
+  //       setOpen(false)
+  //   }
+  //   }, [value])
 
   return (
     <Command>
