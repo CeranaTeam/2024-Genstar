@@ -1,5 +1,5 @@
-import AutoCompleteTextArea from "@/components/AutoCompleteTextArea"
-import DiagnoseTextArea from "@/components/DiagnoseTextArea"
+import AutoCompleteTextArea from "@/components/system/AutoCompleteTextArea"
+import DiagnoseTextArea from "@/components/system/DiagnoseTextArea"
 
 function System() {
 
