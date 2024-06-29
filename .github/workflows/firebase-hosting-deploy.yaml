@@ -25,11 +25,13 @@ jobs:
         run: npm ci
 
       - name: Create env file
-        run: echo ${{ secrets.FIREBASE_API_KEY_LINE }} > .env &&\
-            echo "VITE_FIREBASE_AUTH_DOMAIN=mediguess-assistant.firebaseapp.com" >> .env &&\
-            echo "VITE_FIREBASE_PROJECT_ID=mediguess-assistant" >> .env &&\
-            echo ${{ secrets.FIREBASE_MESSAGING_SENDER_ID_LINE }} >> .env &&\
-            echo ${{ secrets.FIREBASE_APP_ID_LINE }} >> .env &&\
+        run: |
+            touch .env
+            echo ${{ secrets.FIREBASE_API_KEY_LINE }} >> .env
+            echo "VITE_FIREBASE_AUTH_DOMAIN=mediguess-assistant.firebaseapp.com" >> .env
+            echo "VITE_FIREBASE_PROJECT_ID=mediguess-assistant" >> .env
+            echo ${{ secrets.FIREBASE_MESSAGING_SENDER_ID_LINE }} >> .env
+            echo ${{ secrets.FIREBASE_APP_ID_LINE }} >> .env
             echo ${{ secrets.FIREBASE_MEASUREMENT_ID_LINE }} >> .env
       
       - name: Build
