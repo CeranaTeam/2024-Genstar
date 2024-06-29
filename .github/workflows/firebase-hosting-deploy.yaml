@@ -33,11 +33,6 @@ jobs:
       - name: Install Firebase CLI
         run: npm install -g firebase-tools
 
-      - name: Authenticate with Firebase
-        run: firebase login:ci --interactive
-        env:
-          FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
-
       - name: Deploy to Firebase Hosting
         if: github.ref == 'refs/heads/main'
-        run: firebase deploy --only hosting
+        run: firebase deploy --token ${{ secrets.FIREBASE_TOKEN }}
