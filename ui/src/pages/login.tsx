@@ -17,7 +17,7 @@ const Login = () => {
 
   return (
     <div>
-      <Button variant="outline" onClick={login}>
+      <Button variant="outline" onClick={login} className="gap-x-2">
         <GoogleIcon />
         Sign in with Google
       </Button>
