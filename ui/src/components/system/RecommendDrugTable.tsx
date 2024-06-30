@@ -169,7 +169,7 @@ export function RecommenDrugTable(
     }
   ]
 
-  const [data, setData] = React.useState<Drug[]>([
+  const [data, __] = React.useState<Drug[]>([
     {
       id: "AB46029100",
       name: "PRATIN TABLETS",

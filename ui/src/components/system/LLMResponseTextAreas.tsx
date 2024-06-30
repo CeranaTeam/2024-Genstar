@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import AssessmentTextArea from "./llm-textarea/AssessmentTextArea";
 import PlanTextArea from "./llm-textarea/PlanTextArea";
 
@@ -16,7 +16,7 @@ import {
 
 function LLMResponseTextAreas() {
   const [index, setIndex] = useState<number>(0);
-  const [lastIndex, setLastIndex] = useState<number>(3);
+  const [lastIndex, _] = useState<number>(3);
   return (
     <div className="border p-2 mb-4">
       <AssessmentTextArea index={index} />
