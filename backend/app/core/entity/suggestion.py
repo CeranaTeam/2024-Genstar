@@ -1,5 +1,5 @@
 from pydantic import BaseModel
 
-class AA(BaseModel):
-    id: int
+class Suggestion(BaseModel):
     name: str
+    reason: str
