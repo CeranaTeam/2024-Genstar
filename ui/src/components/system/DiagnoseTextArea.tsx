@@ -21,9 +21,9 @@ export default function DiagnoseTextArea() {
   }
 
   return (
-    <div>
+    <div className="mt-4 mb-4 border p-2">
+      <h2 className="text-xl">Diagnosis</h2>
       <Textarea
-        className="mb-4 mt-4"
         placeholder="Enter your diagnosis here..."
         value={text}
         onChange={handleChange}
