@@ -1,10 +1,11 @@
 services:
-  table-compare-service:
-    build: .
+  backend:
+    build: ./backend
     ports:
       - "8000:8000"
     volumes:
       - .:/workspace
     environment:
       - PYTHONUNBUFFERED=1
+      - OPENAI_API_KEY="THE API KEY"
 
