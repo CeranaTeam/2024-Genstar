@@ -1,0 +1,43 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ma-backend-deployment
+  labels:
+    app: ma-backend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ma-backend
+  template:
+    metadata:
+      labels:
+        app: ma-backend
+    spec:
+      containers:
+      - name: ma-backend
+        image: <image-path>
+        ports:
+        - containerPort: 8000
+        env:
+        - name: PYTHONUNBUFFERED
+          value: "1"
+        - name: OPENAI_API_KEY
+          valueFrom:
+            secretKeyRef:
+              name: openai-secret
+              key: OPENAI_API_KEY
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: ma-backend-service
+spec:
+  type: ClusterIP
+  selector:
+    app: ma-backend
+  ports:
+  - port: 8000
+    targetPort: 8000
+

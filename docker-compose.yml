@@ -4,7 +4,7 @@ services:
     ports:
       - "8000:8000"
     volumes:
-      - .:/workspace
+      - ./backend:/workspace
     environment:
       - PYTHONUNBUFFERED=1
       - OPENAI_API_KEY="THE API KEY"
