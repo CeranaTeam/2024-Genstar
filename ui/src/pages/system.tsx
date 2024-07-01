@@ -1,10 +1,10 @@
-import DiagnoseTextArea from "@/components/system/DiagnoseTextArea"
+import DiagnoseTextAreas from "@/components/system/DiagnoseTextAreas"
 
 function System() {
 
   return (
     <>
-      <DiagnoseTextArea />
+      <DiagnoseTextAreas />
     </>
   )
 }

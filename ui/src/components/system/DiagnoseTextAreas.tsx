@@ -6,7 +6,7 @@ import SelectedDrugsTable from "./SelectedDrugsTable"
 
 
 // This component is a text area that will be used to enter the subjective and objective description of the patient
-export default function DiagnoseTextArea() {
+export default function DiagnoseTextAreas() {
   const [text, setText] = useState("")
   const debouncedSearch = useDebounce(text, 1000) // After typing, start to count the time. Then, after one second, it will trigger the useEffect
 
