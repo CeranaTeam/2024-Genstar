@@ -10,6 +10,7 @@ import {
 } from "@/components/ui/table"
 
 import { Button } from "@/components/ui/button"
+import AutoCompleteTextArea from "./AutoCompleteTextArea"
 
 export type SelectedDrugsTableInfo = {
   drugName: string,
@@ -51,6 +52,7 @@ function SelectedDrugsTable() {
 
   return (
     <>
+      <AutoCompleteTextArea />
       <div className="border mb-4 p-2">
         <h2 className="text-xl">Selected Drugs</h2>
         <Table>

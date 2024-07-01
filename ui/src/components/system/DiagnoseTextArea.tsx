@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react"
 import useDebounce from "@/hooks/debounce"
 import { Textarea } from "@/components/ui/textarea"
+import LLMResponseTextAreas from "./LLMResponseTextAreas"
+import SelectedDrugsTable from "./SelectedDrugsTable"
 
 
 // This component is a text area that will be used to enter the subjective and objective description of the patient
@@ -21,13 +23,17 @@ export default function DiagnoseTextArea() {
   }
 
   return (
-    <div className="mt-4 mb-4 border p-2">
-      <h2 className="text-xl">Diagnosis</h2>
-      <Textarea
-        placeholder="Enter your diagnosis here..."
-        value={text}
-        onChange={handleChange}
-      />
-    </div>
+    <>
+      <div className="mt-4 mb-4 border p-2">
+        <h2 className="text-xl">Diagnosis</h2>
+        <Textarea
+          placeholder="Enter your diagnosis here..."
+          value={text}
+          onChange={handleChange}
+        />
+      </div>
+      <LLMResponseTextAreas />
+      <SelectedDrugsTable />
+    </>
   )
 }
