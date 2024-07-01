@@ -8,4 +8,7 @@ services:
     environment:
       - PYTHONUNBUFFERED=1
       - OPENAI_API_KEY="THE API KEY"
-
+  ui:
+    build: ./ui
+    ports:
+      - "5173:80"
