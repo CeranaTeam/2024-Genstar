@@ -1,6 +1,0 @@
-services:
-  mediguess-assistant-ui:
-    build:
-      context: .
-    ports:
-      - "5173:80"

@@ -7,17 +7,21 @@ services:
       - ./backend:/workspace
     environment:
       - PYTHONUNBUFFERED=1
-      - OPENAI_API_KEY="THE API KEY"
-      - POSTGRES_URL=
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+      - POSTGRES_URL=${POSTGRES_URL}
 
   db:
     image: postgres:13.2-alpine
     volumes:
-      - ./postgres_data:/var/lib/postgresql/data
+      - ./pgdata:/var/lib/postgresql/data
     environment:
       - POSTGRES_DB=madatabase
       - POSTGRES_USER=mauser
       - POSTGRES_PASSWORD=mapassword
     ports:
-      - "5432:5432"
+      - "127.0.0.1:5432:5432"
 
+  ui:
+    build: ./ui
+    ports:
+      - "5173:80"
