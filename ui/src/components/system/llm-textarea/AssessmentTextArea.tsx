@@ -1,5 +1,14 @@
-import { useState } from "react"
-import { Textarea } from "@/components/ui/textarea"
+import { useContext } from "react"
+import { LLMResponsesContext } from "@/components/store/LLMResponsesProvider"
+
+import {
+  Table,
+  TableBody,
+  TableHead,
+  TableHeader,
+  TableRow,
+  TableCell,
+} from "@/components/ui/table"
 
 type AssessmentTextAreaProps = {
   index: number
@@ -8,28 +17,30 @@ type AssessmentTextAreaProps = {
 const AssessmentTextArea = (
   { index }: AssessmentTextAreaProps
 ) => {
-  const [text, setText] = useState<string[]>([
-    "This is the first assessment",
-    "This is the second assessment",
-    "This is the third assessment",
-  ])
 
-  const handleTextChange = (index: number) => (e: any) => {
-    const newText = [...text]
-    newText[index] = e.target.value
-    setText(newText)
-  }
+  const { assessmentsContext } = useContext(LLMResponsesContext)
 
   return (
     <>
       <h2 className="text-xl">Assessment</h2>
 
-      <Textarea
-        onChange={handleTextChange(index)}
-        value={text[index]}
-        className="mt-2"
-        placeholder="LLM Assessment"
-      />
+      <Table>
+        <TableHeader>
+          <TableRow>
+            <TableHead className="w-[200px]">Name</TableHead>
+            <TableHead>Reason</TableHead>
+          </TableRow>
+        </TableHeader>
+        <TableBody>
+          {assessmentsContext[index] ? assessmentsContext[index].response.map((item, index) => (
+            <TableRow key={index}>
+              <TableCell>{item.name}</TableCell>
+              <TableCell>{item.reason}</TableCell>
+            </TableRow>
+          )) : null
+          }
+        </TableBody>
+      </Table>
     </>
   )
 }
