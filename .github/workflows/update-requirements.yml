@@ -1,0 +1,36 @@
+name: Update requirements.txt
+
+on:
+  push:
+    branches:
+      - main
+      - backend
+
+jobs:
+  update-requirements:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.12'
+
+    - name: Install Poetry
+      run: |
+        curl -sSL https://install.python-poetry.org | python3 -
+
+    - name: Export requirements.txt
+      run: |
+        cd backend
+        poetry export -f requirements.txt --output requirements.txt --without-hashes
+        cd ..
+
+    - name: Commit and Push
+      run: |
+        git add backend/requirements.txt
+        git commit -m "Update requirements.txt"
+        git push
