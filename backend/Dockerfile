@@ -8,4 +8,6 @@ RUN pip install --no-cache-dir --upgrade -r /workspace/requirements.txt
 
 COPY ./ /workspace
 
-CMD ["fastapi", "run", "app/main.py", "--proxy-headers", "--port", "8000"]
+RUN chmod +x /workspace/start.sh
+
+CMD ["/workspace/start.sh"]
