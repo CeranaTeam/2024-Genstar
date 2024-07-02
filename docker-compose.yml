@@ -8,7 +8,16 @@ services:
     environment:
       - PYTHONUNBUFFERED=1
       - OPENAI_API_KEY="THE API KEY"
-  ui:
-    build: ./ui
+      - POSTGRES_URL=
+
+  db:
+    image: postgres:13.2-alpine
+    volumes:
+      - ./postgres_data:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_DB=madatabase
+      - POSTGRES_USER=mauser
+      - POSTGRES_PASSWORD=mapassword
     ports:
-      - "5173:80"
+      - "5432:5432"
+
