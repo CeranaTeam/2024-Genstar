@@ -70,7 +70,7 @@ const IngredientTable = (
 ) => {
 
   const { ingredientsContext } = useContext(LLMResponsesContext)
-  const { selectedDrugs, addSelectedDrug } = useContext(SelectedSymptomDrugsContext);
+  const { addSelectedDrug } = useContext(SelectedSymptomDrugsContext);
 
   return (
     <>
