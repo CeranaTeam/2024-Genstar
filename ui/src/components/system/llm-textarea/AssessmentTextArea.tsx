@@ -10,19 +10,19 @@ import {
   TableCell,
 } from "@/components/ui/table"
 
-type AssessmentTextAreaProps = {
+type SymptomTextAreaProps = {
   index: number
 }
 
-const AssessmentTextArea = (
-  { index }: AssessmentTextAreaProps
+const SymptomTextArea = (
+  { index }: SymptomTextAreaProps
 ) => {
 
   const { assessmentsContext } = useContext(LLMResponsesContext)
 
   return (
     <>
-      <h2 className="text-xl">Assessment</h2>
+      <h2 className="text-xl">Symptom</h2>
 
       <Table>
         <TableHeader>
@@ -45,4 +45,4 @@ const AssessmentTextArea = (
   )
 }
 
-export default AssessmentTextArea
+export default SymptomTextArea

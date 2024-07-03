@@ -10,19 +10,19 @@ import {
   TableCell,
 } from "@/components/ui/table"
 
-type PlanTextAreaProps = {
+type IngredientTextAreaProps = {
   index: number
 }
 
-const PlanTextArea = (
-  { index }: PlanTextAreaProps
+const IngredientTextArea = (
+  { index }: IngredientTextAreaProps
 ) => {
 
   const { plansContext } = useContext(LLMResponsesContext)
 
   return (
     <>
-      <h2 className="text-xl">Plan</h2>
+      <h2 className="text-xl">Ingredient</h2>
 
       <Table>
         <TableHeader>
@@ -45,4 +45,4 @@ const PlanTextArea = (
   )
 }
 
-export default PlanTextArea
+export default IngredientTextArea

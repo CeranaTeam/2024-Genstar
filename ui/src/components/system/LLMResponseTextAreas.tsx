@@ -1,6 +1,6 @@
 import { useState, useContext } from "react";
-import AssessmentTextArea from "./llm-textarea/AssessmentTextArea";
-import PlanTextArea from "./llm-textarea/PlanTextArea";
+import SymptomTextArea from "./llm-textarea/AssessmentTextArea";
+import IngredientTextArea from "./llm-textarea/PlanTextArea";
 import { LLMResponsesContext } from "@/components/store/LLMResponsesProvider";
 
 
@@ -19,10 +19,10 @@ function LLMResponseTextAreas() {
   return (
     <div className="border p-2 mb-4">
       <div>
-        <AssessmentTextArea index={index} />
+        <SymptomTextArea index={index} />
       </div>
       <div>
-        <PlanTextArea index={index} />
+        <IngredientTextArea index={index} />
       </div>
       <Pagination>
         <PaginationContent>

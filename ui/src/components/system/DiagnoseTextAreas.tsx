@@ -8,16 +8,16 @@ export default function DiagnoseTextAreas() {
   const [text, setText] = useState("")
   const debouncedSearch = useDebounce(text, 1000) // After typing, start to count the time. Then, after one second, it will trigger the useEffect
 
-  const { addAssessmentContext } = useContext(LLMResponsesContext) as LLMResponsesContextType
-  const { addPlanContext } = useContext(LLMResponsesContext) as LLMResponsesContextType
+  const { addSymptomContext } = useContext(LLMResponsesContext) as LLMResponsesContextType
+  const { addIngredientContext } = useContext(LLMResponsesContext) as LLMResponsesContextType
   const [currIndex, setCurrIndex] = useState(0)
 
   useEffect(() => {
     if (!debouncedSearch) return
     const randomTime = Math.floor(Math.random() * 10000) + 1000
     setTimeout(() => {
-      addAssessmentContext({ index: currIndex, response: [{ name: String(currIndex), reason: debouncedSearch }] })
-      addPlanContext({ index: currIndex, response: [{ name: String(currIndex), reason: debouncedSearch }] })
+      addSymptomContext({ index: currIndex, response: [{ name: String(currIndex), reason: debouncedSearch }] })
+      addIngredientContext({ index: currIndex, response: [{ name: String(currIndex), reason: debouncedSearch }] })
     }, randomTime)
     setCurrIndex((prev) => prev + 1)
   }, [debouncedSearch])
