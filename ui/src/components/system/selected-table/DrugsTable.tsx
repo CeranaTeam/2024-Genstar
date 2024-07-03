@@ -31,7 +31,7 @@ function SelectedDrugsTable() {
         <TableBody>
           <TableRow>
             <TableCell>
-              <Input type="text" placeholder="Add drug by typing its name in manual." />
+              <Input type="text" placeholder="Add drug by typing its name in manual" />
             </TableCell>
           </TableRow>
           {selectedDrugs.map((drug, index) => (
