@@ -1,12 +1,12 @@
 import DiagnoseTextAreas from "@/components/system/DiagnoseTextAreas"
-import LLMResponseTextAreas from "@/components/system/LLMResponseTextAreas"
+import LLMResponseTables from "@/components/system/LLMResponseTables"
 
 function System() {
 
   return (
     <>
       <DiagnoseTextAreas />
-      <LLMResponseTextAreas />
+      <LLMResponseTables />
     </>
   )
 }

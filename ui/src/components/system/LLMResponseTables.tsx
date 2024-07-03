@@ -1,6 +1,6 @@
 import { useState, useContext } from "react";
-import SymptomTextArea from "./llm-textarea/SymptomTable";
-import IngredientTextArea from "./llm-textarea/IngredientTable";
+import SymptomTable from "./llm-response-table/SymptomTable";
+import IngredientTable from "./llm-response-table/IngredientTable";
 import { LLMResponsesContext } from "@/components/store/LLMResponsesProvider";
 
 
@@ -13,16 +13,16 @@ import {
   PaginationPrevious,
 } from "@/components/ui/pagination"
 
-function LLMResponseTextAreas() {
+function LLMResponseTables() {
   const [index, setIndex] = useState<number>(0);
   const { count } = useContext(LLMResponsesContext);
   return (
     <div className="border p-2 mb-4">
       <div>
-        <SymptomTextArea index={index} />
+        <SymptomTable index={index} />
       </div>
       <div>
-        <IngredientTextArea index={index} />
+        <IngredientTable index={index} />
       </div>
       <Pagination>
         <PaginationContent>
@@ -41,4 +41,4 @@ function LLMResponseTextAreas() {
   );
 }
 
-export default LLMResponseTextAreas;
+export default LLMResponseTables;
