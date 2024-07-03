@@ -12,17 +12,27 @@ import {
   PaginationNext,
   PaginationPrevious,
 } from "@/components/ui/pagination"
+import SelectedSysmptomDrugsProvider from "../store/SelectedSymptomDrugsProvider";
+import SelectedSymptomsTable from "./selected-table/SymptomsTable";
+import SelectedDrugsTable from "./selected-table/DrugsTable";
 
 function LLMResponseTables() {
   const [index, setIndex] = useState<number>(0);
   const { count } = useContext(LLMResponsesContext);
   return (
+    <SelectedSysmptomDrugsProvider>
     <div className="border p-2 mb-4">
       <div>
         <SymptomTable index={index} />
       </div>
       <div>
+        <SelectedSymptomsTable />
+      </div>
+      <div>
         <IngredientTable index={index} />
+      </div>
+      <div>
+        <SelectedDrugsTable />
       </div>
       <Pagination>
         <PaginationContent>
@@ -38,6 +48,7 @@ function LLMResponseTables() {
         </PaginationContent>
       </Pagination>
     </div>
+    </SelectedSysmptomDrugsProvider>
   );
 }
 
