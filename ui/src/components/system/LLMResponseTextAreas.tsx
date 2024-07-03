@@ -1,6 +1,6 @@
 import { useState, useContext } from "react";
-import SymptomTextArea from "./llm-textarea/AssessmentTextArea";
-import IngredientTextArea from "./llm-textarea/PlanTextArea";
+import SymptomTextArea from "./llm-textarea/SymptomTable";
+import IngredientTextArea from "./llm-textarea/IngredientTable";
 import { LLMResponsesContext } from "@/components/store/LLMResponsesProvider";
 
 

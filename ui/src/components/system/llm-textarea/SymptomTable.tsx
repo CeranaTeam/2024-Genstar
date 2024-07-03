@@ -10,19 +10,19 @@ import {
   TableCell,
 } from "@/components/ui/table"
 
-type IngredientTextAreaProps = {
+type SymptomTableProps = {
   index: number
 }
 
-const IngredientTextArea = (
-  { index }: IngredientTextAreaProps
+const SymptomTable = (
+  { index }: SymptomTableProps
 ) => {
 
-  const { plansContext } = useContext(LLMResponsesContext)
+  const { symptomsContext } = useContext(LLMResponsesContext)
 
   return (
     <>
-      <h2 className="text-xl">Ingredient</h2>
+      <h2 className="text-xl">Symptom</h2>
 
       <Table>
         <TableHeader>
@@ -32,7 +32,7 @@ const IngredientTextArea = (
           </TableRow>
         </TableHeader>
         <TableBody>
-          {plansContext[index] ? plansContext[index].response.map((item, index) => (
+          {symptomsContext[index] ? symptomsContext[index].response.map((item, index) => (
             <TableRow key={index}>
               <TableCell>{item.name}</TableCell>
               <TableCell>{item.reason}</TableCell>
@@ -45,4 +45,4 @@ const IngredientTextArea = (
   )
 }
 
-export default IngredientTextArea
+export default SymptomTable

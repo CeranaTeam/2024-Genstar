@@ -16,19 +16,19 @@ export type IngredientContextInfo = {
 };
 
 export type LLMResponsesContextType = {
-  assessmentsContext: SymptomContextInfo[];
-  plansContext: IngredientContextInfo[];
+  symptomsContext: SymptomContextInfo[];
+  ingredientsContext: IngredientContextInfo[];
   count: number;
-  addSymptomContext: (assessmentContext: SymptomContextInfo) => void;
+  addSymptomContext: (symptomContext: SymptomContextInfo) => void;
   updateSymptomContext: (index: number, response: ResponseInfo[]) => void;
-  addIngredientContext: (plansContext: IngredientContextInfo) => void;
+  addIngredientContext: (ingredientsContext: IngredientContextInfo) => void;
   updateIngredientContext: (index: number, response: ResponseInfo[]) => void;
 };
 
 export const LLMResponsesContext = createContext<LLMResponsesContextType>(
   {
-    assessmentsContext: [],
-    plansContext: [],
+    symptomsContext: [],
+    ingredientsContext: [],
     count: 0,
     addSymptomContext: () => { },
     updateSymptomContext: () => { },
@@ -38,44 +38,44 @@ export const LLMResponsesContext = createContext<LLMResponsesContextType>(
 )
 
 const LLMResponsesProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const [assessmentsContext, setSymptomsContext] = useState<SymptomContextInfo[]>([]);
-  const [plansContext, setIngredientsContext] = useState<IngredientContextInfo[]>([]);
+  const [symptomsContext, setSymptomsContext] = useState<SymptomContextInfo[]>([]);
+  const [ingredientsContext, setIngredientsContext] = useState<IngredientContextInfo[]>([]);
   const [count, setCount] = useState(0);
 
-  const addSymptomContext = (assessmentContext: SymptomContextInfo) => {
-    const insertIndex = assessmentsContext.findIndex((response) => response.index > assessmentContext.index);
+  const addSymptomContext = (symptomContext: SymptomContextInfo) => {
+    const insertIndex = symptomsContext.findIndex((response) => response.index > symptomContext.index);
     if (insertIndex === -1) {
-      setSymptomsContext((prev) => [...prev, assessmentContext]);
+      setSymptomsContext((prev) => [...prev, symptomContext]);
     }
     else {
-      const newSymptomsContext = [...assessmentsContext];
-      newSymptomsContext.splice(insertIndex, 0, assessmentContext);
+      const newSymptomsContext = [...symptomsContext];
+      newSymptomsContext.splice(insertIndex, 0, symptomContext);
       setSymptomsContext(() => newSymptomsContext);
     }
     setCount((prevCount) => prevCount + 1)
   };
 
   const updateSymptomContext = (index: number, response: ResponseInfo[]) => {
-    const newSymptomsContext = [...assessmentsContext];
+    const newSymptomsContext = [...symptomsContext];
     const indexToUpdate = newSymptomsContext.findIndex((response) => response.index === index);
     newSymptomsContext[indexToUpdate].response = response;
     setSymptomsContext(newSymptomsContext);
   }
 
-  const addIngredientContext = (planContext: IngredientContextInfo) => {
-    const insertIndex = plansContext.findIndex((response) => response.index > planContext.index);
+  const addIngredientContext = (ingredientContext: IngredientContextInfo) => {
+    const insertIndex = ingredientsContext.findIndex((response) => response.index > ingredientContext.index);
     if (insertIndex === -1) {
-      setIngredientsContext((prev) => [...prev, planContext]);
+      setIngredientsContext((prev) => [...prev, ingredientContext]);
     }
     else {
-      const newIngredientsContext = [...plansContext];
-      newIngredientsContext.splice(insertIndex, 0, planContext);
+      const newIngredientsContext = [...ingredientsContext];
+      newIngredientsContext.splice(insertIndex, 0, ingredientContext);
       setIngredientsContext(() => newIngredientsContext)
     }
   }
 
   const updateIngredientContext = (index: number, response: ResponseInfo[]) => {
-    const newIngredientsContext = [...plansContext];
+    const newIngredientsContext = [...ingredientsContext];
     const indexToUpdate = newIngredientsContext.findIndex((response) => response.index === index);
     newIngredientsContext[indexToUpdate].response = response;
     setIngredientsContext(newIngredientsContext);
@@ -83,7 +83,7 @@ const LLMResponsesProvider: React.FC<{ children: React.ReactNode }> = ({ childre
 
   return (
     <LLMResponsesContext.Provider value={{
-      assessmentsContext, plansContext, count,
+      symptomsContext, ingredientsContext, count,
       addSymptomContext, updateSymptomContext, addIngredientContext, updateIngredientContext
     }} >
       {children}
