@@ -3,7 +3,6 @@
 # Echo running database migrations
 echo "Running database migrations..."
 cd /workspace/migrate
-poetry run pip install sqlalchemy pandas openpyxl psycopg2
 poetry run python init_db.py
 cd /workspace
 

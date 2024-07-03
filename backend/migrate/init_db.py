@@ -7,9 +7,6 @@ import pandas as pd
 
 # load_dotenv()
 
-df = pd.read_excel('ICD-10-CM-2023.xlsx')
-print(df.head())
-
 Base = declarative_base()
 
 class Disease(Base):
@@ -32,8 +29,16 @@ Base.metadata.create_all(engine)
 Session = sessionmaker(bind=engine)
 session = Session()
 
-# 進行數據轉存
-for index, row in df.iterrows():
-    disease = Disease(id=row['ICD-10-CM'], english_name=row['2023 CM英文名稱'], chinese_name=row['2023 CM中文名稱'])
-    session.merge(disease)
-session.commit()
+existing_count = session.query(Disease).count()
+
+if existing_count == 0:
+    # 進行數據轉存
+    df = pd.read_excel('ICD-10-CM-2023.xlsx')
+    print(df.head())
+    for index, row in df.iterrows():
+        disease = Disease(id=row['ICD-10-CM'], english_name=row['2023 CM英文名稱'], chinese_name=row['2023 CM中文名稱'])
+        session.merge(disease)
+    session.commit()
+else:
+    print("Data already exists in the database.")
+

@@ -12,11 +12,15 @@ class PGCMRepo(CMRepo):
 
     def search_similar_diseases(self, english_name: str, limit=5) -> list[DiseaseInfo]:
         similarity_query = text(
-            "SELECT id, english_name, chinese_name, SIMILARITY(english_name, :name) AS sim "
-            "FROM diseases WHERE english_name % :name "
+            "SELECT id, english_name, chinese_name, SIMILARITY(LOWER(english_name), :name) AS sim "
+            "FROM diseases"
             "ORDER BY sim DESC LIMIT :limit"
         )
+        print("similarity_query")
+        print(similarity_query)
         with self.engine.connect() as conn:
             result = conn.execute(similarity_query, {'name': english_name, 'limit': limit}).fetchall()
+            print("result")
+            print(result)
 
             return [DiseaseInfo(icd_10_code=row[0], english_name=row[1], chinese_name=row[2]) for row in result]

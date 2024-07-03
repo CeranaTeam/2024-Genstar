@@ -33,7 +33,7 @@ async def drug(request: AutocompleteDrugRequest) -> AutocompleteDrugResponse:
 async def diagnosis(request: AutocompleteDiagnosisRequest) -> AutocompleteDiagnosisResponse:
     cm_repo: CMRepo = PGCMRepo()
     try:
-        diagnosis = cm_repo.search_similar_diseases(request.query)
+        diagnosis = cm_repo.search_similar_diseases(request.query.lower())
         print("[medicine] diagnosis")
         print(diagnosis)
         return AutocompleteDiagnosisResponse(diagnosis=diagnosis, message="Success")
