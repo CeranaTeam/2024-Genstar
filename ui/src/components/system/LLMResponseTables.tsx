@@ -1,4 +1,4 @@
-import { useState, useContext } from "react";
+import { useState, useContext, useEffect } from "react";
 import SymptomTable from "./llm-response-table/SymptomTable";
 import IngredientTable from "./llm-response-table/IngredientTable";
 import { LLMResponsesContext } from "@/components/store/LLMResponsesProvider";
@@ -17,19 +17,24 @@ import SelectedSymptomsTable from "./selected-table/SymptomsTable";
 import SelectedDrugsTable from "./selected-table/DrugsTable";
 
 function LLMResponseTables() {
-  const [index, setIndex] = useState<number>(0);
   const { count } = useContext(LLMResponsesContext);
+  const [index, setIndex] = useState<number>(count);
+
+  useEffect(() => {
+    setIndex(() => count)
+  }, [count])
+
   return (
     <SelectedSymptomsDrugsProvider>
     <div className="border p-2 mb-4">
       <div>
-        <SymptomTable index={index} />
+        <SymptomTable index={index !== 0 ? index-1 : 0} />
       </div>
       <div>
         <SelectedSymptomsTable />
       </div>
       <div>
-        <IngredientTable index={index} />
+        <IngredientTable index={index !== 0 ? index -1 : 0} />
       </div>
       <div>
         <SelectedDrugsTable />
@@ -40,10 +45,10 @@ function LLMResponseTables() {
             <PaginationPrevious onClick={() => setIndex(() => Math.max(0, index - 1))} />
           </PaginationItem>
           <PaginationItem>
-            <PaginationLink>{index + 1} / {count === 0 ? count + 1 : count}</PaginationLink>
+            <PaginationLink>{index === 0 ? 1 : index} / {count === 0 ? 1 : count}</PaginationLink>
           </PaginationItem>
           <PaginationItem>
-            <PaginationNext onClick={() => setIndex(() => Math.min(count - 1, index + 1))} />
+            <PaginationNext onClick={() => setIndex(() => Math.min(count, index + 1))} />
           </PaginationItem>
         </PaginationContent>
       </Pagination>
