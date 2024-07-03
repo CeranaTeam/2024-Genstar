@@ -1,5 +1,6 @@
 import { useContext } from "react"
 import { LLMResponsesContext } from "@/components/store/LLMResponsesProvider"
+import { SelectedSymptomDrugsContext } from "@/components/store/SelectedSymptomDrugsProvider"
 
 import {
   Table,
@@ -16,7 +17,47 @@ import {
   DialogFooter,
   DialogClose,
   DialogTrigger,
+  DialogHeader,
+  DialogTitle,
+  DialogDescription,
 } from "@/components/ui/dialog"
+
+const data = [
+  {
+    name: "drug1",
+    id: "1",
+    std_qty: "1",
+    std_unit: "mg",
+    dosage: "1",
+    compound: "compound1",
+    ingredients: [
+      {
+        name: "ingredient1",
+        quantity: "1",
+        unit: "mg",
+      }
+    ],
+    classify_name: "classify1",
+    manufacturer: "manufacturer1"
+  },
+  {
+    name: "drug2",
+    id: "2",
+    std_qty: "2",
+    std_unit: "mg",
+    dosage: "2",
+    compound: "compound2",
+    ingredients: [
+      {
+        name: "ingredient2",
+        quantity: "2",
+        unit: "mg",
+      }
+    ],
+    classify_name: "classify2",
+    manufacturer: "manufacturer2"
+  }
+]
 
 import { Button } from "@/components/ui/button"
 
@@ -29,6 +70,7 @@ const IngredientTable = (
 ) => {
 
   const { ingredientsContext } = useContext(LLMResponsesContext)
+  const { selectedDrugs, addSelectedDrug } = useContext(SelectedSymptomDrugsContext);
 
   return (
     <>
@@ -42,15 +84,22 @@ const IngredientTable = (
           </TableRow>
         </TableHeader>
         <TableBody>
-          {ingredientsContext[index] ? ingredientsContext[index].response.map((item, index) => (
-            <Dialog>
+          {ingredientsContext[index] ? ingredientsContext[index].response.map((item, idx1) => (
+            <Dialog key={idx1}>
               <DialogTrigger asChild>
-                <TableRow key={index}>
+                <TableRow key={idx1}>
                   <TableCell>{item.name}</TableCell>
                   <TableCell>{item.reason}</TableCell>
                 </TableRow>
               </DialogTrigger>
               <DialogContent>
+                <DialogHeader>
+                  <DialogTitle>Are you absolutely sure?</DialogTitle>
+                  <DialogDescription>
+                    This action cannot be undone. This will permanently delete your account
+                    and remove your data from our servers.
+                  </DialogDescription>
+                </DialogHeader>
                 <Table>
                   <TableHeader>
                     <TableRow>
@@ -61,7 +110,20 @@ const IngredientTable = (
                     </TableRow>
                   </TableHeader>
                   <TableBody>
-                    { }
+                    {data.map((drug, idx2) => {
+                      return (
+                        <TableRow key={idx2}>
+                          <TableCell>{drug.name}</TableCell>
+                          <TableCell>{drug.dosage}</TableCell>
+                          <TableCell>{drug.compound}</TableCell>
+                          <TableCell>
+                            <Button
+                              onClick={() => addSelectedDrug(drug)}
+                              variant="outline">Add</Button>
+                          </TableCell>
+                        </TableRow>
+                      )
+                    })}
                   </TableBody>
                 </Table>
                 <DialogFooter>
