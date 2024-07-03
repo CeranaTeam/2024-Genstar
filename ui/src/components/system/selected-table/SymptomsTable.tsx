@@ -30,7 +30,7 @@ function SelectedSymptomsTable() {
         <TableBody>
           <TableRow>
             <TableCell>
-              <Input type="text" placeholder="Symptom Name" />
+              <Input type="text" placeholder="Add symptom by typing its name in manual" />
             </TableCell>
           </TableRow>
           {selectedSymptoms.map((symptom, index) => (

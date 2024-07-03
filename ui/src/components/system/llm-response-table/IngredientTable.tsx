@@ -94,10 +94,9 @@ const IngredientTable = (
               </DialogTrigger>
               <DialogContent>
                 <DialogHeader>
-                  <DialogTitle>Are you absolutely sure?</DialogTitle>
+                  <DialogTitle>Releated Drugs</DialogTitle>
                   <DialogDescription>
-                    This action cannot be undone. This will permanently delete your account
-                    and remove your data from our servers.
+                    These are the drugs that contain the ingredient
                   </DialogDescription>
                 </DialogHeader>
                 <Table>
