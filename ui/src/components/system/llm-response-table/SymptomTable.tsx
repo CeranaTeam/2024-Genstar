@@ -24,7 +24,7 @@ const SymptomTable = (
     <>
       <h2 className="text-xl">Symptom</h2>
 
-      <Table>
+      <Table className="mb-4">
         <TableHeader>
           <TableRow>
             <TableHead className="w-[200px]">Name</TableHead>
