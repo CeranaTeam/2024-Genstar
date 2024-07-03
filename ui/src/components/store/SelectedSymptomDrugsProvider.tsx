@@ -2,7 +2,7 @@
 import { createContext, useState } from 'react';
 
 export type SelectedSymptomDrugsContextType = {
-  selectedSysmptoms: AutocompleteDiagnosisInfo[];
+  selectedSymptoms: AutocompleteDiagnosisInfo[];
   selectedDrugs: AutocompleteDrugInfo[];
   addSelectedSymptom: (selectedSymptom: AutocompleteDiagnosisInfo) => void;
   addSelectedDrug: (selectedDrug: AutocompleteDrugInfo) => void;
@@ -12,7 +12,7 @@ export type SelectedSymptomDrugsContextType = {
 
 export const SelectedSymptomDrugsContext = createContext<SelectedSymptomDrugsContextType>(
   {
-    selectedSysmptoms: [],
+    selectedSymptoms: [],
     selectedDrugs: [],
     addSelectedSymptom: () => { },
     addSelectedDrug: () => { },
@@ -22,7 +22,7 @@ export const SelectedSymptomDrugsContext = createContext<SelectedSymptomDrugsCon
 )
 
 function SelectedSymptomDrugsProvider({ children }: { children: React.ReactNode }) {
-  const [selectedSysmptoms, setSelectedSymptoms] = useState<AutocompleteDiagnosisInfo[]>([]);
+  const [selectedSymptoms, setSelectedSymptoms] = useState<AutocompleteDiagnosisInfo[]>([]);
   const [selectedDrugs, setSelectedDrugs] = useState<AutocompleteDrugInfo[]>([]);
 
   const addSelectedSymptom = (selectedSymptom: AutocompleteDiagnosisInfo) => {
@@ -34,7 +34,7 @@ function SelectedSymptomDrugsProvider({ children }: { children: React.ReactNode 
   };
 
   const removeSelectedSymptom = (idx: string) => {
-    const newSelectedSymptoms = selectedSysmptoms.filter((_, index) => index !== parseInt(idx));
+    const newSelectedSymptoms = selectedSymptoms.filter((_, index) => index !== parseInt(idx));
     setSelectedSymptoms(newSelectedSymptoms);
   };
 
@@ -45,7 +45,7 @@ function SelectedSymptomDrugsProvider({ children }: { children: React.ReactNode 
 
   return (
     <SelectedSymptomDrugsContext.Provider value={{
-      selectedSysmptoms, selectedDrugs,
+      selectedSymptoms, selectedDrugs,
       addSelectedSymptom, addSelectedDrug, removeSelectedSymptom, removeSelectedDrug
     }}>
       {children}

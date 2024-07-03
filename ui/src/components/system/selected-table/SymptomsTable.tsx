@@ -14,10 +14,10 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 
 function SelectedSymptomsTable() {
-  const { selectedSysmptoms, removeSelectedSymptom } = useContext(SelectedSymptomDrugsContext);
+  const { selectedSymptoms, removeSelectedSymptom } = useContext(SelectedSymptomDrugsContext);
   return (
     <>
-      <h2 className="text-xl">Selcted Sysmptoms</h2>
+      <h2 className="text-xl">Selcted Symptoms</h2>
       <Table className="mb-4">
         <TableHeader>
           <TableRow>
@@ -33,11 +33,11 @@ function SelectedSymptomsTable() {
               <Input type="text" placeholder="Symptom Name" />
             </TableCell>
           </TableRow>
-          {selectedSysmptoms.map((sysmptom, index) => (
+          {selectedSymptoms.map((symptom, index) => (
             <TableRow key={index}>
-              <TableCell>{sysmptom.id}</TableCell>
-              <TableCell>{sysmptom.english_name}</TableCell>
-              <TableCell>{sysmptom.chinese_name}</TableCell>
+              <TableCell>{symptom.id}</TableCell>
+              <TableCell>{symptom.english_name}</TableCell>
+              <TableCell>{symptom.chinese_name}</TableCell>
               <TableCell>
                 <Button
                   onClick={() => removeSelectedSymptom(String(index))}

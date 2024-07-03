@@ -14,7 +14,7 @@ export default function DiagnoseTextAreas() {
 
   useEffect(() => {
     if (!debouncedSearch) return
-    const randomTime = Math.floor(Math.random() * 10000) + 1000
+    const randomTime = Math.floor(Math.random() * 6000) + 1000
     setTimeout(() => {
       addSymptomContext({ index: currIndex, response: [{ name: String(currIndex), reason: debouncedSearch }] })
       addIngredientContext({ index: currIndex, response: [{ name: String(currIndex), reason: debouncedSearch }] })
