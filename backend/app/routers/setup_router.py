@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-from app.routers.v0 import autocomplete
+from app.routers.v0 import autocomplete,generate, summary
 
 
 def setup_router(app: FastAPI):
@@ -14,3 +14,5 @@ def setup_router(app: FastAPI):
     )
 
     app.include_router((autocomplete.router))
+    app.include_router((generate.router))
+    app.include_router((summary.router))

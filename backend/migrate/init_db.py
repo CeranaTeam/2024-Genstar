@@ -1,7 +1,11 @@
-from sqlalchemy import create_engine, Column, String
+import os
+from sqlalchemy import create_engine, Column, String, text
 from sqlalchemy.orm import declarative_base
 from sqlalchemy.orm import sessionmaker
 import pandas as pd
+# from dotenv import load_dotenv
+
+# load_dotenv()
 
 df = pd.read_excel('ICD-10-CM-2023.xlsx')
 print(df.head())
@@ -14,9 +18,15 @@ class Disease(Base):
     english_name = Column(String)
     chinese_name = Column(String)
 
-DATABASE_URL = "postgresql://mauser:mapassword@localhost:5432/madatabase"
+DATABASE_URL = os.getenv('POSTGRES_URL')
+if DATABASE_URL is None:
+    raise ValueError('DATABASE_URL is not set')
 
 engine = create_engine(DATABASE_URL)
+# 安裝 pg_trgm 擴展
+with engine.connect() as conn:
+    conn.execute(text("CREATE EXTENSION IF NOT EXISTS pg_trgm;"))
+    conn.commit()
 Base.metadata.create_all(engine)
 
 Session = sessionmaker(bind=engine)
