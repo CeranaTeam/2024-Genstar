@@ -11,6 +11,7 @@ RUN apt-get update && \
     pipx install poetry && \
     # poetry config virtualenvs.create false && \poetry config virtualenvs.create false && \
     poetry install --no-dev && \
+    poetry run pip install sqlalchemy pandas openpyxl psycopg2 && \
     chmod +x /workspace/entrypoint.sh
 
 ENTRYPOINT ["/workspace/entrypoint.sh"]
