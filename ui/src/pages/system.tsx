@@ -1,17 +1,12 @@
-import AutoCompleteTextArea from "@/components/system/AutoCompleteTextArea"
-import DiagnoseTextArea from "@/components/system/DiagnoseTextArea"
-import LLMResponseTextAreas from "@/components/system/LLMResponseTextAreas"
-import SelectedDrugsTable from "@/components/system/SelectedDrugsTable"
+import DiagnoseTextAreas from "@/components/system/DiagnoseTextAreas"
+import LLMResponseTables from "@/components/system/LLMResponseTables"
 
 function System() {
 
   return (
     <>
-      <DiagnoseTextArea />
-      <LLMResponseTextAreas />
-      <SelectedDrugsTable />
-      <AutoCompleteTextArea />
-      {/* <Button /> */}
+      <DiagnoseTextAreas />
+      <LLMResponseTables />
     </>
   )
 }
