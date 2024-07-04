@@ -33,6 +33,7 @@ jobs:
             echo ${{ secrets.FIREBASE_MESSAGING_SENDER_ID_LINE }} >> .env
             echo ${{ secrets.FIREBASE_APP_ID_LINE }} >> .env
             echo ${{ secrets.FIREBASE_MEASUREMENT_ID_LINE }} >> .env
+            echo ${{ secrets.API_URL_LINE }} >> .env
       
       - name: Build
         run: npm run build
