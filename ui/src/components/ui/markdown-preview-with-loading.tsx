@@ -10,18 +10,17 @@ export default function MarkdownPreviewWithLoading({
 }) {
   const [content, setContent] = useState("");
 
-  console.log("source", source);
-  console.log("isLoading", isLoading);
-  setContent("")
-
   useEffect(() => {
-  })
+    console.log("source", source);
+    console.log("isLoading", isLoading);
+    setContent("")
+  },[source, isLoading])
 
   return <>
     <div>{content}</div>
-    <MarkdownPreview 
-      source={content} 
-      style={{ padding: 16 }}   
+    <MarkdownPreview
+      source={content}
+      style={{ padding: 16 }}
       wrapperElement={{
         "data-color-mode": "light"
       }}
