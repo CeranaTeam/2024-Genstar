@@ -20,8 +20,12 @@ def extract_codeblocks(text: str) -> list[str]:
 def parse_suggestions(target:str, json_response: str) -> list[Suggestion]:
     print("[parse_json_medication_response] start")
 # Remove the code block syntax if included in the response
-    json_response = json_response.strip('```json')
-    json_response = json_response.strip('```')
+    # Find the JSON block within the backticks
+    start_index = json_response.find('```json') + 7  # Find the start of JSON block, add 7 to skip '```json'
+    end_index = json_response.find('```', start_index)  # Find the end of JSON block
+    
+    # Extract and clean the JSON text
+    json_data = json_response[start_index:end_index].strip()
     print("[parse_json_medication_response] json_response")
     print(json_response)
 
