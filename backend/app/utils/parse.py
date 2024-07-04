@@ -23,9 +23,14 @@ def parse_suggestions(target:str, json_response: str) -> list[Suggestion]:
     # Find the JSON block within the backticks
     start_index = json_response.find('```json') + 7  # Find the start of JSON block, add 7 to skip '```json'
     end_index = json_response.find('```', start_index)  # Find the end of JSON block
+
+    # print("[parse_json_medication_response] start_index")
+    # print(start_index)
+    # print("[parse_json_medication_response] end_index")
+    # print(end_index)
     
     # Extract and clean the JSON text
-    json_data = json_response[start_index:end_index].strip()
+    json_response = json_response[start_index:end_index].strip()
     print("[parse_json_medication_response] json_response")
     print(json_response)
 

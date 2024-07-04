@@ -10,7 +10,7 @@ Current Diagnosis: {current_diagnosis}
 
 Output: Recommended drug ingredients with reason (in JSON format)
 
-```
+```json
 {{
   "ingredients": [
     {{
