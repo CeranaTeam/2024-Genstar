@@ -13,7 +13,6 @@ export default function DiagnoseTextAreas() {
   const [currIndex, setCurrIndex] = useState(0)
 
   const apiUrl = import.meta.env.VITE_API_URL
-  console.log(apiUrl)
 
   const fetchSymptoms = async () => {
     try {
