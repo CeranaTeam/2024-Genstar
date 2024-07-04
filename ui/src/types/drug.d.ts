@@ -4,22 +4,24 @@ type IngredientInfo = {
   unit: string;
 }
 
-type DrugDTO = {
-  drug_name: string;
-  drug_code: string;
-  drug_std_qty: string;
-  drug_std_unit: null;
-  drug_dosage: string;
-  drug_compound: string;
-  drug_ings: {
-    ing_name: string;
-    ing_qty: string;
-    ing_unit: string;
+type DrugsDTO = {
+  drugs: {
+    drug_name: string;
+    drug_code: string;
+    drug_std_qty: string;
+    drug_std_unit: null;
+    drug_ings: {
+      ing_name: string;
+      ing_qty: string;
+      ing_unit: string;
+    }[];
+    drug_classify_name: string;
+    drug_dose: string;
+    druggist_name: string;
+    atc_code: string;
+    mixture: string;
   }[];
-
-  drug_classify_name: string;
-  druggist_name: string;
-  atc_code: string;
+  message: string;
 }
 
 type AutocompleteDrugInfo = {
@@ -32,4 +34,12 @@ type AutocompleteDrugInfo = {
   ingredients: IngredientInfo[];
   classify_name: string;
   manufacturer: string;
+};
+
+type IngredientsDTO = {
+  ingredient_suggestions: {
+    name: string;
+    reason: string;
+  }[];
+  message: string;
 };

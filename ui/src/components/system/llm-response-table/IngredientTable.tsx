@@ -1,4 +1,4 @@
-import { useContext } from "react"
+import { useContext, useState } from "react"
 import { LLMResponsesContext } from "@/components/store/LLMResponsesProvider"
 import { SelectedSymptomDrugsContext } from "@/components/store/SelectedSymptomDrugsProvider"
 
@@ -22,44 +22,47 @@ import {
   DialogDescription,
 } from "@/components/ui/dialog"
 
-const data = [
-  {
-    name: "drug1",
-    id: "1",
-    std_qty: "1",
-    std_unit: "mg",
-    dosage: "1",
-    compound: "compound1",
-    ingredients: [
-      {
-        name: "ingredient1",
-        quantity: "1",
-        unit: "mg",
-      }
-    ],
-    classify_name: "classify1",
-    manufacturer: "manufacturer1"
-  },
-  {
-    name: "drug2",
-    id: "2",
-    std_qty: "2",
-    std_unit: "mg",
-    dosage: "2",
-    compound: "compound2",
-    ingredients: [
-      {
-        name: "ingredient2",
-        quantity: "2",
-        unit: "mg",
-      }
-    ],
-    classify_name: "classify2",
-    manufacturer: "manufacturer2"
-  }
-]
+// const data = [
+//   {
+//     name: "drug1",
+//     id: "1",
+//     std_qty: "1",
+//     std_unit: "mg",
+//     dosage: "1",
+//     compound: "compound1",
+//     ingredients: [
+//       {
+//         name: "ingredient1",
+//         quantity: "1",
+//         unit: "mg",
+//       }
+//     ],
+//     classify_name: "classify1",
+//     manufacturer: "manufacturer1"
+//   },
+//   {
+//     name: "drug2",
+//     id: "2",
+//     std_qty: "2",
+//     std_unit: "mg",
+//     dosage: "2",
+//     compound: "compound2",
+//     ingredients: [
+//       {
+//         name: "ingredient2",
+//         quantity: "2",
+//         unit: "mg",
+//       }
+//     ],
+//     classify_name: "classify2",
+//     manufacturer: "manufacturer2"
+//   }
+// ]
 
 import { Button } from "@/components/ui/button"
+
+
+
 
 type IngredientTableProps = {
   index: number
@@ -71,6 +74,75 @@ const IngredientTable = (
 
   const { ingredientsContext } = useContext(LLMResponsesContext)
   const { addSelectedDrug } = useContext(SelectedSymptomDrugsContext);
+
+  const [data, setData] = useState<AutocompleteDrugInfo[]>([]);
+
+  const apiUrl = import.meta.env.VITE_API_URL
+  const fetchDrugs = async (ingredient: string) => {
+    console.log("fetching drugs")
+    try {
+      const response_drugs = await fetch(`${apiUrl}/autocomplete/drug`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          "query": ingredient,
+          "page_size": 10,
+          "page": 1,
+        }),
+
+
+      });
+      const data: DrugsDTO = await response_drugs.json();
+
+      const convertedData: AutocompleteDrugInfo[] = data.drugs.map((drug) => {
+        if (drug.drug_std_qty === "0"){
+          return {
+            name: drug.drug_name,
+            id: drug.drug_code,
+            std_qty: drug.drug_ings.length > 0 ? drug.drug_ings[0].ing_qty : "0",
+            std_unit: drug.drug_ings.length > 0 ? drug.drug_ings[0].ing_unit : "null",
+            dosage: drug.drug_dose,
+            compound: drug.mixture,
+            ingredients: drug.drug_ings.map((ing) => {
+              return {
+                name: ing.ing_name,
+                quantity: ing.ing_qty,
+                unit: ing.ing_unit,
+              }
+            }),
+            classify_name: drug.drug_classify_name,
+            manufacturer: drug.druggist_name,
+          }
+        }
+        else {
+          return {
+            name: drug.drug_name,
+            id: drug.drug_code,
+            std_qty: drug.drug_std_qty,
+            std_unit: drug.drug_std_unit,
+            dosage: drug.drug_dose,
+            compound: drug.mixture,
+            ingredients: drug.drug_ings.map((ing) => {
+              return {
+                name: ing.ing_name,
+                quantity: ing.ing_qty,
+                unit: ing.ing_unit,
+              }
+            }),
+            classify_name: drug.drug_classify_name,
+            manufacturer: drug.druggist_name,
+          }
+        }
+      });
+
+      setData(convertedData);
+    }
+    catch (error) {
+      console.error("There was an error fetching the drugs:", error);
+    }
+  }
 
   return (
     <>
@@ -86,18 +158,17 @@ const IngredientTable = (
         <TableBody>
           {ingredientsContext[index] ? ingredientsContext[index].response.map((item, idx1) => (
             <Dialog key={idx1}>
-              <DialogTrigger asChild>
+              <DialogTrigger onClick={() => fetchDrugs(item.name)} asChild>
                 <TableRow key={idx1}>
                   <TableCell>{item.name}</TableCell>
                   <TableCell>{item.reason}</TableCell>
                 </TableRow>
               </DialogTrigger>
-              <DialogContent>
+              <DialogContent className="max-w-[650px] max-h-[500px] overflow-auto">
                 <DialogHeader>
-                  <DialogTitle>Are you absolutely sure?</DialogTitle>
+                  <DialogTitle>Releated Drugs</DialogTitle>
                   <DialogDescription>
-                    This action cannot be undone. This will permanently delete your account
-                    and remove your data from our servers.
+                    These are the drugs that contain the ingredient
                   </DialogDescription>
                 </DialogHeader>
                 <Table>

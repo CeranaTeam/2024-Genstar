@@ -1,18 +1,18 @@
 import { createContext, useState } from 'react';
 
-type ResponseInfo = {
+export type ResponseReasonInfo = {
   name: string;
   reason: string;
 };
 
 export type SymptomContextInfo = {
   index: number;
-  response: ResponseInfo[];
+  response: ResponseReasonInfo[];
 };
 
 export type IngredientContextInfo = {
   index: number;
-  response: ResponseInfo[];
+  response: ResponseReasonInfo[];
 };
 
 export type LLMResponsesContextType = {
@@ -20,9 +20,9 @@ export type LLMResponsesContextType = {
   ingredientsContext: IngredientContextInfo[];
   count: number;
   addSymptomContext: (symptomContext: SymptomContextInfo) => void;
-  updateSymptomContext: (index: number, response: ResponseInfo[]) => void;
+  updateSymptomContext: (index: number, response: ResponseReasonInfo[]) => void;
   addIngredientContext: (ingredientsContext: IngredientContextInfo) => void;
-  updateIngredientContext: (index: number, response: ResponseInfo[]) => void;
+  updateIngredientContext: (index: number, response: ResponseReasonInfo[]) => void;
 };
 
 export const LLMResponsesContext = createContext<LLMResponsesContextType>(
@@ -55,7 +55,7 @@ const LLMResponsesProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     setCount((prevCount) => prevCount + 1)
   };
 
-  const updateSymptomContext = (index: number, response: ResponseInfo[]) => {
+  const updateSymptomContext = (index: number, response: ResponseReasonInfo[]) => {
     const newSymptomsContext = [...symptomsContext];
     const indexToUpdate = newSymptomsContext.findIndex((response) => response.index === index);
     newSymptomsContext[indexToUpdate].response = response;
@@ -74,7 +74,7 @@ const LLMResponsesProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     }
   }
 
-  const updateIngredientContext = (index: number, response: ResponseInfo[]) => {
+  const updateIngredientContext = (index: number, response: ResponseReasonInfo[]) => {
     const newIngredientsContext = [...ingredientsContext];
     const indexToUpdate = newIngredientsContext.findIndex((response) => response.index === index);
     newIngredientsContext[indexToUpdate].response = response;
