@@ -8,16 +8,18 @@ prompt_template = """
 Medical History: {medical_history}
 Current Diagnosis: {current_diagnosis}
 
-Output: Detailed Assessment - Symptoms and their inferred causes
+Output: Detailed Assessment - icd_10_code, name(icd_10_name) and their inferred causes
 
 ```
 {{
   "symptoms": [
     {{
+      "icd_10_code": "ICD-10 code",
       "name": "Symptom name",
       "reason": "Inferred cause based on medical history and current diagnosis."
     }},
     {{
+      "icd_10_code": "ICD-10 code",
       "name": "Another symptom name",
       "reason": "Inferred cause based on medical history and current diagnosis."
     }}
