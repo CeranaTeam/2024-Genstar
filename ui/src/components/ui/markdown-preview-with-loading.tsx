@@ -10,6 +10,13 @@ export default function MarkdownPreviewWithLoading({
 }) {
   const [content, setContent] = useState("");
 
+  console.log("source", source);
+  console.log("isLoading", isLoading);
+  setContent("")
+
+  useEffect(() => {
+  })
+
   return <>
     <div>{content}</div>
     <MarkdownPreview 
