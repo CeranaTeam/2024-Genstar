@@ -1,8 +1,12 @@
+import DiagnoseTextAreas from "@/components/system/DiagnoseTextAreas"
+import LLMResponseTables from "@/components/system/LLMResponseTables"
+
 function Home() {
   return (
-    <div>
-      <p>Welcome to the home page!</p>
-    </div>
+    <>
+      <DiagnoseTextAreas />
+      <LLMResponseTables />
+    </>
   );
 }
 
