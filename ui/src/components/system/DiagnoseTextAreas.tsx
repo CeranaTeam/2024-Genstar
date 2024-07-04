@@ -1,7 +1,7 @@
 import { useEffect, useState, useContext } from "react"
 import useDebounce from "@/hooks/debounce"
 import { Textarea } from "@/components/ui/textarea"
-import { LLMResponsesContext, LLMResponsesContextType } from "@/components/store/LLMResponsesProvider"
+import { LLMResponsesContext, LLMResponsesContextType, ResponseReasonInfo } from "@/components/store/LLMResponsesProvider"
 
 // This component is a text area that will be used to enter the subjective and objective description of the patient
 export default function DiagnoseTextAreas() {
@@ -12,14 +12,74 @@ export default function DiagnoseTextAreas() {
   const { addIngredientContext } = useContext(LLMResponsesContext) as LLMResponsesContextType
   const [currIndex, setCurrIndex] = useState(0)
 
+  const apiUrl = import.meta.env.VITE_API_URL
+  console.log(apiUrl)
+
+  const fetchSymptoms = async () => {
+    try {
+      const response = await fetch(`${apiUrl}/generate/diagnosis`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ context: debouncedSearch }),
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to fetch diagnosis");
+      }
+
+      const data: SymptomsDTO = await response.json();
+
+      const convertedData: ResponseReasonInfo[] = data.diagnosis_suggestions.map((symptom) => {
+        return {
+          name: symptom.name,
+          reason: symptom.reason,
+        }
+      })
+      // Assuming you want to use the data here
+      addSymptomContext({ index: currIndex, response: convertedData });
+    } catch (error) {
+      console.error("There was an error fetching the diagnosis:", error);
+    }
+  }
+
+  const fetchIngredients = async () => {
+    try {
+      const response = await fetch(`${apiUrl}/generate/ingredient`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ context: debouncedSearch }),
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to fetch ingredient");
+      }
+
+      const data: IngredientsDTO = await response.json();
+
+      const convertedData: ResponseReasonInfo[] = data.ingredient_suggestions.map((ingredient) => {
+        return {
+          name: ingredient.name,
+          reason: ingredient.reason,
+        }
+      })
+
+      // Assuming you want to use the data here
+      addIngredientContext({ index: currIndex, response: convertedData });
+    } catch (error) {
+      console.error("There was an error fetching the ingredient:", error);
+    }
+  }
+
   useEffect(() => {
-    if (!debouncedSearch) return
-    const randomTime = Math.floor(Math.random() * 6000) + 1000
-    setTimeout(() => {
-      addSymptomContext({ index: currIndex, response: [{ name: String(currIndex), reason: debouncedSearch }] })
-      addIngredientContext({ index: currIndex, response: [{ name: String(currIndex), reason: debouncedSearch }] })
-    }, randomTime)
-    setCurrIndex((prev) => prev + 1)
+    if (debouncedSearch) {
+      fetchSymptoms()
+      fetchIngredients()
+      setCurrIndex((prev) => prev + 1)
+    }
   }, [debouncedSearch])
 
   const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {

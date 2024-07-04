@@ -1,5 +1,6 @@
 
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
+import useDebounce from "@/hooks/debounce";
 import { SelectedSymptomDrugsContext } from "@/components/store/SelectedSymptomDrugsProvider";
 import {
   Table,
@@ -14,7 +15,6 @@ import {
 import {
   Command,
   CommandList,
-  CommandEmpty,
   CommandGroup,
   CommandInput,
   CommandItem,
@@ -26,29 +26,52 @@ function SelectedSymptomsTable() {
   const { selectedSymptoms, removeSelectedSymptom } = useContext(SelectedSymptomDrugsContext);
   const [inputText, setInputText] = useState("");
 
+  const debouncedInputText = useDebounce(inputText, 500);
+
   const { addSelectedSymptom } = useContext(SelectedSymptomDrugsContext);
 
-  const handleTableRowClick = (text: string) => {
-    setInputText(text);
+  const [drugs, setDrugs] = useState<AutocompleteDiagnosisInfo[]>([]);
+
+  const apiUrl = import.meta.env.VITE_API_URL;
+  const fetchSymptoms = async () => {
+    try {
+      const response_symptoms = await fetch(`${apiUrl}/autocomplete/diagnosis`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ query: inputText }),
+      });
+
+      if (!response_symptoms.ok) {
+        throw new Error("Failed to fetch symptoms");
+      }
+
+      const data: AutocompleteDiagnosisDTO = await response_symptoms.json();
+
+      const convertedData: AutocompleteDiagnosisInfo[] = data.diagnosis.map((symptom) => {
+        return {
+          id: symptom.icd_10_code,
+          english_name: symptom.english_name,
+          chinese_name: symptom.chinese_name,
+        }
+      })
+
+      setDrugs(convertedData);
+
+    } catch (error) {
+      console.error("There was an error fetching the symptoms:", error);
+    }
   }
 
-  const drugs: AutocompleteDiagnosisInfo[] =  [
-    {
-      id: "1",
-      english_name: "Headache",
-      chinese_name: "Headache",
-    },
-    {
-      id: "2",
-      english_name: "Cough",
-      chinese_name: "Cough",
-    },
-    {
-      id: "3",
-      english_name: "Fever",
-      chinese_name: "Fever",
+  useEffect(() => {
+    if (debouncedInputText) {
+      fetchSymptoms();
     }
-  ]
+    else{
+      setDrugs([])
+    }
+  }, [debouncedInputText])
 
   return (
     <>
@@ -56,9 +79,9 @@ function SelectedSymptomsTable() {
       <Table className="mb-4">
         <TableHeader>
           <TableRow>
-            <TableHead>Symptom ID</TableHead>
             <TableHead>English Name</TableHead>
             <TableHead>Chinese Name</TableHead>
+            <TableHead>ICD10 Code</TableHead>
             <TableHead>Action</TableHead>
           </TableRow>
         </TableHeader>
@@ -69,7 +92,6 @@ function SelectedSymptomsTable() {
                 <CommandInput placeholder="Search Symptom..."
                   value={inputText} onValueChange={setInputText}
                 />
-                <CommandEmpty>No drug found.</CommandEmpty>
                 <CommandGroup>
                   <CommandList>
                     {drugs.map((drug, index) => (
@@ -90,10 +112,10 @@ function SelectedSymptomsTable() {
             </TableCell>
           </TableRow>
           {selectedSymptoms.map((symptom, index) => (
-            <TableRow key={index} onClick={() => handleTableRowClick(symptom.english_name)}>
-              <TableCell>{symptom.id}</TableCell>
+            <TableRow key={index}>
               <TableCell>{symptom.english_name}</TableCell>
               <TableCell>{symptom.chinese_name}</TableCell>
+              <TableCell>{symptom.id}</TableCell>
               <TableCell>
                 <Button
                   onClick={() => removeSelectedSymptom(String(index))}
@@ -106,5 +128,6 @@ function SelectedSymptomsTable() {
     </>
   )
 }
+
 
 export default SelectedSymptomsTable;
