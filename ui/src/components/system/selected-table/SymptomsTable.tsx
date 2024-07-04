@@ -1,5 +1,5 @@
 
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { SelectedSymptomDrugsContext } from "@/components/store/SelectedSymptomDrugsProvider";
 import {
   Table,
@@ -10,11 +10,46 @@ import {
   TableCell,
 } from "@/components/ui/table"
 
+
+import {
+  Command,
+  CommandList,
+  CommandEmpty,
+  CommandGroup,
+  CommandInput,
+  CommandItem,
+} from "@/components/ui/command"
+
 import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
 
 function SelectedSymptomsTable() {
   const { selectedSymptoms, removeSelectedSymptom } = useContext(SelectedSymptomDrugsContext);
+  const [inputText, setInputText] = useState("");
+
+  const { addSelectedSymptom } = useContext(SelectedSymptomDrugsContext);
+
+  const handleTableRowClick = (text: string) => {
+    setInputText(text);
+  }
+
+  const drugs: AutocompleteDiagnosisInfo[] =  [
+    {
+      id: "1",
+      english_name: "Headache",
+      chinese_name: "Headache",
+    },
+    {
+      id: "2",
+      english_name: "Cough",
+      chinese_name: "Cough",
+    },
+    {
+      id: "3",
+      english_name: "Fever",
+      chinese_name: "Fever",
+    }
+  ]
+
   return (
     <>
       <h2 className="text-xl">Selcted Symptoms</h2>
@@ -30,11 +65,32 @@ function SelectedSymptomsTable() {
         <TableBody>
           <TableRow>
             <TableCell>
-              <Input type="text" placeholder="Add symptom by typing its name in manual" />
+              <Command>
+                <CommandInput placeholder="Search Symptom..."
+                  value={inputText} onValueChange={setInputText}
+                />
+                <CommandEmpty>No drug found.</CommandEmpty>
+                <CommandGroup>
+                  <CommandList>
+                    {drugs.map((drug, index) => (
+                      <CommandItem
+                        key={index}
+                        value={drug.english_name}
+                        onSelect={() => {
+                          setInputText("")
+                          addSelectedSymptom(drug)
+                        }}
+                      >
+                        {drug.english_name}
+                      </CommandItem>
+                    ))}
+                  </CommandList>
+                </CommandGroup>
+              </Command>
             </TableCell>
           </TableRow>
           {selectedSymptoms.map((symptom, index) => (
-            <TableRow key={index}>
+            <TableRow key={index} onClick={() => handleTableRowClick(symptom.english_name)}>
               <TableCell>{symptom.id}</TableCell>
               <TableCell>{symptom.english_name}</TableCell>
               <TableCell>{symptom.chinese_name}</TableCell>
