@@ -17,8 +17,10 @@ class DrugInfo(BaseModel):
     drug_std_unit: str | None
     drug_ings: list[DrugIngrediant]
     drug_classify_name: str
+    drug_dose: str
     druggist_name: str
     atc_code: str
+    mixture: str
 
 class DiseaseInfo(BaseModel):
     icd_10_code: str
