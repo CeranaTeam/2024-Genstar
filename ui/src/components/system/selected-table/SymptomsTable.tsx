@@ -1,5 +1,5 @@
 
-import { useContext, useEffect, useState } from "react";
+import { useContext, useState } from "react";
 import { SelectedSymptomDrugsContext } from "@/components/store/SelectedSymptomDrugsProvider";
 import {
   Table,
@@ -10,9 +10,7 @@ import {
   TableCell,
 } from "@/components/ui/table"
 
-import { Check } from "lucide-react"
 
-import { cn } from "@/lib/utils"
 import {
   Command,
   CommandList,
@@ -23,7 +21,6 @@ import {
 } from "@/components/ui/command"
 
 import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
 
 function SelectedSymptomsTable() {
   const { selectedSymptoms, removeSelectedSymptom } = useContext(SelectedSymptomDrugsContext);
