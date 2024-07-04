@@ -60,8 +60,10 @@ class NHIDrugService(DrugService):
                     drug_std_unit=drug["druG_STD_UNIT"],
                     drug_ings=drug_ings,
                     drug_classify_name=drug["druG_CLASSIFY_NAME"],
+                    drug_dose=drug["druG_DOSE"],
                     druggist_name=drug["druggisT_NAME"],
-                    atc_code=drug["atC_CODE"]
+                    atc_code=drug["atC_CODE"],
+                    mixture=drug["mixture"],
             )
             results.append(drug_info)
 

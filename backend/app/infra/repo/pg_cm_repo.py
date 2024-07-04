@@ -13,7 +13,7 @@ class PGCMRepo(CMRepo):
     def search_similar_diseases(self, english_name: str, limit=5) -> list[DiseaseInfo]:
         similarity_query = text(
             "SELECT id, english_name, chinese_name, SIMILARITY(LOWER(english_name), :name) AS sim "
-            "FROM diseases"
+            "FROM diseases "
             "ORDER BY sim DESC LIMIT :limit"
         )
         print("similarity_query")
