@@ -1,10 +1,12 @@
 from fastapi import APIRouter, HTTPException
-
-from app.core.medical import generate_ingredient_recommendation, generate_diagnosis_recommendation
+from app.infra.repo import PGCMRepo
+from app.core.repo import CMRepo
+from app.core.repo.drug_service import DrugService, DrugRequestPayload
+from app.infra.restful import NHIDrugService
 
 from .dtos import (
-    AutocompleteIngredientRequest,
-    AutocompleteIngredientResponse,
+    AutocompleteDrugRequest,
+    AutocompleteDrugResponse,
     AutocompleteDiagnosisRequest,
     AutocompleteDiagnosisResponse,
 )
@@ -14,22 +16,26 @@ router = APIRouter(
     tags=["autocomplete"]
 )
 
-@router.post("/ingredient")
-async def ingredient(request: AutocompleteIngredientRequest) -> AutocompleteIngredientResponse:
+
+@router.post("/drug")
+async def drug(request: AutocompleteDrugRequest) -> AutocompleteDrugResponse:
+    drug_servie: DrugService = NHIDrugService()
     try:
-        ingredient_suggestions = generate_ingredient_recommendation('none', request.context)
-        print("[medicine] ingredient_suggestions")
-        print(ingredient_suggestions)
-        return AutocompleteIngredientResponse(ingredient_suggestions=ingredient_suggestions, message="Success")
+        payload = DrugRequestPayload(ing_name=request.query, curpage=request.page, page_size=request.page_size)
+        drugs = drug_servie.get_drug_info(payload)
+        print("[medicine] drugs")
+        print(drugs)
+        return AutocompleteDrugResponse(drugs=drugs, message="Success")
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 
 @router.post("/diagnosis")
-async def recommand(request: AutocompleteDiagnosisRequest) -> AutocompleteDiagnosisResponse:
+async def diagnosis(request: AutocompleteDiagnosisRequest) -> AutocompleteDiagnosisResponse:
+    cm_repo: CMRepo = PGCMRepo()
     try:
-        diagnosis_suggestions = generate_diagnosis_recommendation('none', request.context)
-        print("[medicine] diagnosis_suggestions")
-        print(diagnosis_suggestions)
-        return AutocompleteDiagnosisResponse(diagnosis_suggestions=diagnosis_suggestions, message="Success")
+        diagnosis = cm_repo.search_similar_diseases(request.query.lower())
+        print("[medicine] diagnosis")
+        print(diagnosis)
+        return AutocompleteDiagnosisResponse(diagnosis=diagnosis, message="Success")
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
