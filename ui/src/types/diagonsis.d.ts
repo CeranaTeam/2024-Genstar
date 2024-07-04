@@ -18,3 +18,12 @@ type AutocompleteDiagnosisInfo = {
     english_name: string;
     chinese_name: string;
 };
+
+type SymptomsDTO = {
+    diagnosis_suggestions:{
+        name: string
+        reason: string
+      }[]
+    ,
+    message: string
+};
