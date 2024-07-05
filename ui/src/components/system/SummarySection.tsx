@@ -3,8 +3,8 @@ import MarkdownPreviewWithLoading from '@/components/ui/markdown-preview-with-lo
 export default function SummarySection() {
 
   return (
-    <div>
-      <div>Summary</div>
+    <div className="border p-2">
+      <h1>總結病例</h1>
       <MarkdownPreviewWithLoading source={''} isLoading={true} />
     </div>
   )
