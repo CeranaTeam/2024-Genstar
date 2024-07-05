@@ -22,7 +22,7 @@ const SymptomTable = (
 
   return (
     <>
-      <h2 className="text-xl">Symptom</h2>
+      <h2 className="text-xl">可能症狀</h2>
 
       <Table className="mb-4">
         <TableHeader>

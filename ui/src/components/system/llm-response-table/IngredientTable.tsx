@@ -146,8 +146,7 @@ const IngredientTable = (
 
   return (
     <>
-      <h2 className="text-xl">Ingredient</h2>
-
+      <h2 className="text-xl">推薦成份</h2>
       <Table className="mb-4">
         <TableHeader>
           <TableRow>

@@ -75,7 +75,7 @@ function SelectedSymptomsTable() {
 
   return (
     <>
-      <h2 className="text-xl">Selcted Symptoms</h2>
+      <h2 className="text-xl">症狀</h2>
       <Table className="mb-4">
         <TableHeader>
           <TableRow>
@@ -87,7 +87,7 @@ function SelectedSymptomsTable() {
         </TableHeader>
         <TableBody>
           <TableRow>
-            <TableCell>
+            <TableCell className="p-0">
               <Command>
                 <CommandInput placeholder="Search Symptom..."
                   value={inputText} onValueChange={setInputText}
