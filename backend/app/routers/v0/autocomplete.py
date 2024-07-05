@@ -28,6 +28,7 @@ async def drug(request: AutocompleteDrugRequest) -> AutocompleteDrugResponse:
         print(drugs)
         return AutocompleteDrugResponse(drugs=drugs, message="Success")
     except Exception as e:
+        print("[ERROR]" + str(e))
         raise HTTPException(status_code=500, detail=str(e))
 
 @router.post("/diagnosis")
@@ -39,4 +40,5 @@ async def diagnosis(request: AutocompleteDiagnosisRequest) -> AutocompleteDiagno
         print(diagnosis)
         return AutocompleteDiagnosisResponse(diagnosis=diagnosis, message="Success")
     except Exception as e:
+        print("[ERROR]" + str(e))
         raise HTTPException(status_code=500, detail=str(e))

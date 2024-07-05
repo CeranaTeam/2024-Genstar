@@ -22,6 +22,7 @@ async def ingredient(request: GenerateIngredientRequest) -> GenerateIngredientRe
         print(ingredient_suggestions)
         return GenerateIngredientResponse(ingredient_suggestions=ingredient_suggestions, message="Success")
     except Exception as e:
+        print("[ERROR]" + str(e))
         raise HTTPException(status_code=500, detail=str(e))
 
 @router.post("/diagnosis")
@@ -32,4 +33,5 @@ async def recommand(request: GenerateDiagnosisRequest) -> GenerateDiagnosisRespo
         print(diagnosis_suggestions)
         return GenerateDiagnosisResponse(diagnosis_suggestions=diagnosis_suggestions, message="Success")
     except Exception as e:
+        print("[ERROR]" + str(e))
         raise HTTPException(status_code=500, detail=str(e))
