@@ -21,7 +21,8 @@ router = APIRouter(
 async def drug(request: AutocompleteDrugRequest) -> AutocompleteDrugResponse:
     drug_servie: DrugService = NHIDrugService()
     try:
-        payload = DrugRequestPayload(ing_name=request.query, curpage=request.page, page_size=request.page_size)
+        first_name = request.query.split(" ")[0]
+        payload = DrugRequestPayload(ing_name=first_name, curpage=request.page, page_size=request.page_size)
         drugs = drug_servie.get_drug_info(payload)
         print("[medicine] drugs")
         print(drugs)

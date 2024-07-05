@@ -10,7 +10,7 @@ Current Diagnosis: {current_diagnosis}
 
 Output: Recommended drug ingredients with reason (in JSON format)
 
-```
+```json
 {{
   "ingredients": [
     {{
@@ -26,7 +26,7 @@ Output: Recommended drug ingredients with reason (in JSON format)
 }}
 ```
 
-Please ensure the output strictly follows JSON format encapsulated within a Markdown code block. Analyze the patient's complete medical background, including any laboratory results and genetic information. Consider drug interactions, allergies, and specific health conditions to tailor the treatment plan effectively. The structured JSON output will facilitate easy integration and analysis in various health systems.
+Do not include anything other than medication names in the "name" field, and avoid using brackets or including multiple names within a single "name" field. Please ensure the output strictly follows JSON format encapsulated within a Markdown code block. Analyze the patient's complete medical background, including any laboratory results and genetic information. Consider drug interactions, allergies, and specific health conditions to tailor the treatment plan effectively. The structured JSON output will facilitate easy integration and analysis in various health systems.
 """
 
 

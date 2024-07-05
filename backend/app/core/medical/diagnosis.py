@@ -10,7 +10,7 @@ Current Diagnosis: {current_diagnosis}
 
 Output: Detailed Assessment - icd_10_code, name(icd_10_name) and their inferred causes
 
-```
+```json
 {{
   "symptoms": [
     {{
