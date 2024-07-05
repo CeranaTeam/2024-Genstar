@@ -1,4 +1,4 @@
-FROM node:20-alpine as build_stage
+FROM node:20-alpine AS build_stage
 
 WORKDIR /build
 COPY package*.json ./
@@ -6,7 +6,7 @@ RUN npm ci
 COPY . .
 RUN npm run build
 
-FROM nginx:stable-alpine as production_stage
+FROM nginx:stable-alpine AS production_stage
 
 RUN apk add --no-cache tzdata
 ENV TZ="Asia/Taipei"
