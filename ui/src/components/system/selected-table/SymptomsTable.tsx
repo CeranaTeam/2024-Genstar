@@ -1,7 +1,7 @@
 
 import { useContext, useEffect, useState } from "react";
 import useDebounce from "@/hooks/debounce";
-import { SelectedSymptomDrugsContext } from "@/components/store/SelectedSymptomDrugsProvider";
+import { SelectedSymptomDrugsContext } from "@/components/store/SelectedSymptomsDrugsProvider";
 import {
   Table,
   TableBody,

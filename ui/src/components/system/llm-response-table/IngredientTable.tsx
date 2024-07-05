@@ -1,7 +1,6 @@
 import { useContext, useState } from "react"
 import { LLMResponsesContext } from "@/components/store/LLMResponsesProvider"
-import { SelectedSymptomDrugsContext } from "@/components/store/SelectedSymptomDrugsProvider"
-
+import { SelectedSymptomDrugsContext } from "@/components/store/SelectedSymptomsDrugsProvider"
 import {
   Table,
   TableBody,
@@ -10,7 +9,6 @@ import {
   TableRow,
   TableCell,
 } from "@/components/ui/table"
-
 import {
   Dialog,
   DialogContent,
@@ -21,48 +19,7 @@ import {
   DialogTitle,
   DialogDescription,
 } from "@/components/ui/dialog"
-
-// const data = [
-//   {
-//     name: "drug1",
-//     id: "1",
-//     std_qty: "1",
-//     std_unit: "mg",
-//     dosage: "1",
-//     compound: "compound1",
-//     ingredients: [
-//       {
-//         name: "ingredient1",
-//         quantity: "1",
-//         unit: "mg",
-//       }
-//     ],
-//     classify_name: "classify1",
-//     manufacturer: "manufacturer1"
-//   },
-//   {
-//     name: "drug2",
-//     id: "2",
-//     std_qty: "2",
-//     std_unit: "mg",
-//     dosage: "2",
-//     compound: "compound2",
-//     ingredients: [
-//       {
-//         name: "ingredient2",
-//         quantity: "2",
-//         unit: "mg",
-//       }
-//     ],
-//     classify_name: "classify2",
-//     manufacturer: "manufacturer2"
-//   }
-// ]
-
 import { Button } from "@/components/ui/button"
-
-
-
 
 type IngredientTableProps = {
   index: number

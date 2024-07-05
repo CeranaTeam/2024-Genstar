@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { SelectedSymptomDrugsContext } from "@/components/store/SelectedSymptomDrugsProvider";
+import { SelectedSymptomDrugsContext } from "@/components/store/SelectedSymptomsDrugsProvider";
 import {
   Table,
   TableBody,
