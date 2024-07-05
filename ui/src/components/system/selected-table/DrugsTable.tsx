@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { SelectedSymptomDrugsContext } from "@/components/store/SelectedSymptomDrugsProvider";
+import { SelectedSymptomDrugsContext } from "@/components/store/SelectedSymptomsDrugsProvider";
 import {
   Table,
   TableBody,
@@ -16,12 +16,14 @@ function SelectedDrugsTable() {
   const { selectedDrugs, removeSelectedDrug } = useContext(SelectedSymptomDrugsContext);
   return (
     <>
-      <h2 className="text-xl">Selcted Drugs</h2>
+      <h2 className="text-xl">使用藥物</h2>
       <Table className="mb-4">
         <TableHeader>
           <TableRow>
             <TableHead>Drug Name</TableHead>
+            {/*<TableHead>藥物名稱</TableHead>*/}
             <TableHead>Dosage</TableHead>
+            {/*<TableHead>劑量</TableHead>*/}
             <TableHead>Quantity</TableHead>
             <TableHead>Unit</TableHead>
             <TableHead>Compound</TableHead>
@@ -30,7 +32,8 @@ function SelectedDrugsTable() {
         </TableHeader>
         <TableBody>
           <TableRow>
-            <TableCell>
+            <TableCell className="p-0">
+              {/* [TODO] Should be replace to search with auto-complete */}
               <Input type="text" placeholder="Add drug by typing its name in manual" />
             </TableCell>
           </TableRow>

@@ -81,14 +81,20 @@ export default function DiagnoseTextAreas() {
     }
   }, [debouncedSearch])
 
+  useEffect(() => {
+    localStorage.setItem("diagnosis", '')
+  }, [])
+
   const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setText(e.target.value)
+    localStorage.setItem("diagnosis", e.target.value)
   }
 
   return (
     <div className="mt-4 mb-4 border p-2">
-      <h2 className="text-xl">Diagnosis</h2>
+      <h2 className="text-xl mb-2">紀錄</h2>
       <Textarea
+        className="min-h-36"
         placeholder="Enter your diagnosis here..."
         value={text}
         onChange={handleChange}

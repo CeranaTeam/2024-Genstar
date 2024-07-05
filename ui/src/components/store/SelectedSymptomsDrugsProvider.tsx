@@ -21,7 +21,7 @@ export const SelectedSymptomDrugsContext = createContext<SelectedSymptomDrugsCon
   }
 )
 
-function SelectedSymptomDrugsProvider({ children }: { children: React.ReactNode }) {
+export default function SelectedSymptomsDrugsProvider({ children }: { children: React.ReactNode }) {
   const [selectedSymptoms, setSelectedSymptoms] = useState<AutocompleteDiagnosisInfo[]>([]);
   const [selectedDrugs, setSelectedDrugs] = useState<AutocompleteDrugInfo[]>([]);
 
@@ -52,5 +52,3 @@ function SelectedSymptomDrugsProvider({ children }: { children: React.ReactNode 
     </SelectedSymptomDrugsContext.Provider>
   );
 }
-
-export default SelectedSymptomDrugsProvider;
