@@ -2,19 +2,19 @@ from langchain_core.prompts import PromptTemplate
 from app.core.llm import llm
 
 prompt_template = """
-Task: Organize and summarize provided medical visit information into a SOAP format using Markdown, based on the context given.
+Task: Organize and summarize provided medical visit information into a concise and consistent medical record using Markdown format.
 
 Input Context:
 {context}
 
 Output Requirements:
-- Format the summary using Markdown with SOAP headings: Subjective, Objective, Assessment, Plan.
 
+Do not add any information not present in the provided context.
+Ensure the output is brief, written in complete sentences, and not just formatted as SOAP sections but as a coherent medical note.
 Instructions:
-1. Identify and categorize information from the context into the appropriate SOAP sections.
-2. Use Markdown headings for each SOAP section and provide a concise summary under each heading.
-3. Maintain clarity and readability suitable for medical professionals.
 
+Use bold text, code formatting, backslashes, or other Markdown elements to enhance readability.
+Maintain clarity and readability suitable for medical professionals.
 Generate a structured document that helps quickly grasp the essentials of the patient's visit.
 """
 
