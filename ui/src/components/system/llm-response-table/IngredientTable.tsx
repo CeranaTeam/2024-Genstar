@@ -157,7 +157,7 @@ const IngredientTable = (
         <TableBody>
           {ingredientsContext[index] ? ingredientsContext[index].response.map((item, idx1) => (
             <Dialog key={idx1}>
-              <DialogTrigger onClick={() => fetchDrugs(item.name)} asChild>
+              <DialogTrigger className="cursor-pointer" onClick={() => fetchDrugs(item.name)} asChild>
                 <TableRow key={idx1}>
                   <TableCell>{item.name}</TableCell>
                   <TableCell>{item.reason}</TableCell>
