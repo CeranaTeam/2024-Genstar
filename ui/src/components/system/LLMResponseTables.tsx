@@ -47,7 +47,8 @@ function LLMResponseTables() {
         </Pagination>
         <div>
           <SelectedSymptomsTable />
-        </div>
+        </div></div>
+      <div className="border p-2 mb-4">
         <div>
           <IngredientTable index={index !== 0 ? index - 1 : 0} />
         </div>
