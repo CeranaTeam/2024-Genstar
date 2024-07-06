@@ -8,9 +8,6 @@ RUN npm run build
 
 FROM nginx:stable-alpine AS production_stage
 
-RUN apk add --no-cache tzdata
-ENV TZ="Asia/Taipei"
-
 WORKDIR /app
 COPY --from=build_stage /build/dist /usr/share/nginx/html
 COPY nginx/default.conf /etc/nginx/conf.d/default.conf
