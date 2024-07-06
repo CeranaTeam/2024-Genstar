@@ -134,7 +134,7 @@ const IngredientBadge = (
           </DialogTrigger>
           <DialogContent className="max-w-[650px] max-h-[500px] overflow-auto">
             <DialogHeader>
-              <DialogTitle>Releated Drugs</DialogTitle>
+              <DialogTitle>Releated Drugs - {item.name}</DialogTitle>
               <DialogDescription>
                 These are the drugs that contain the ingredient
               </DialogDescription>
@@ -151,20 +151,41 @@ const IngredientBadge = (
               <TableBody>
                 {data.map((drug, idx2) => {
                   return (
-                    <TableRow key={idx2}>
-                      <TableCell>{drug.name}</TableCell>
-                      <TableCell>{drug.dosage}</TableCell>
-                      <TableCell>{drug.compound}</TableCell>
-                      <TableCell>
-                        <Button
-                          className="bg-green-400 hover:bg-green-500"
-                          onClick={() => {
-                            addSelectedDrug(drug)
-                            setOpen(false)
-                          }}
-                        ><PlusIcon className="h-5 w-5" color="white" /></Button>
-                      </TableCell>
-                    </TableRow>
+                    <HoverCard openDelay={0} closeDelay={0} key={idx2}>
+                      <HoverCardTrigger asChild>
+                        <TableRow key={idx2}>
+                          <TableCell>{drug.name}</TableCell>
+                          <TableCell>{drug.dosage}</TableCell>
+                          <TableCell>{drug.compound}</TableCell>
+                          <TableCell>
+                            <Button
+                              className="bg-green-400 hover:bg-green-500"
+                              onClick={() => {
+                                addSelectedDrug(drug)
+                                setOpen(false)
+                              }}
+                            ><PlusIcon className="h-5 w-5" color="white" /></Button>
+                          </TableCell>
+                        </TableRow>
+                      </HoverCardTrigger>
+                      <tr>
+                        <td>
+                          <HoverCardContent className="w-300">
+                            <li><span className="font-bold">Standard Qty:</span> {drug.std_qty} {drug.std_unit}</li>
+                            <li><span className="font-bold">Classify Name:</span> {drug.classify_name}</li>
+                            <li><span className="font-bold">Manufacturer:</span> {drug.manufacturer}</li>
+                            <li><span className="font-bold">Ingredients:</span> (<span className="text-gray-500">name/std_qty/std_unit)</span></li>
+                            {drug.ingredients.map((ing, idx3) => {
+                              return (
+                                <li key={idx3} className="pl-4">
+                                  {ing.name} : <span className="text-gray-500">{ing.quantity} {ing.unit}</span>
+                                </li>
+                              )
+                            })}
+                          </HoverCardContent>
+                        </td>
+                      </tr>
+                    </HoverCard>
                   )
                 })}
               </TableBody>
