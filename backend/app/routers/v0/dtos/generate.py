@@ -1,5 +1,5 @@
 from pydantic import BaseModel, Field
-from app.core.entity import Suggestion
+from app.core.entity import Suggestion, IngredientSuggestion
 
 class GenerateIngredientRequest(BaseModel):
     context: str = Field(examples=[
@@ -8,7 +8,7 @@ class GenerateIngredientRequest(BaseModel):
 ])
 
 class GenerateIngredientResponse(BaseModel):
-    ingredient_suggestions: list[Suggestion]
+    ingredient_suggestions: list[IngredientSuggestion]
     message: str
 
 class GenerateDiagnosisRequest(BaseModel):

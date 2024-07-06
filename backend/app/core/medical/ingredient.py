@@ -1,5 +1,5 @@
-from app.core.entity import Suggestion
-from app.utils.parse import parse_suggestions
+from app.core.entity import IngredientSuggestion
+from app.utils.parse import parse_ingredient_suggestions
 from langchain_core.prompts import PromptTemplate
 from app.core.llm import llm
 
@@ -8,7 +8,7 @@ prompt_template = """
 Medical History: {medical_history}
 Current Diagnosis: {current_diagnosis}
 
-Output: Recommended drug ingredients with reason (in JSON format)
+Output: Recommended drug ingredients with reason and side effects (in JSON format)
 
 ```json
 {{
@@ -16,10 +16,12 @@ Output: Recommended drug ingredients with reason (in JSON format)
     {{
       "name": "Medication name",
       "reason": "Detailed justification focusing on safety, efficacy, and patient-specific considerations"
+      "side_effects": "List of side effects associated with the medication"
     }},
     {{
       "name": "Medication name",
       "reason": "Detailed justification focusing on safety, efficacy, and patient-specific considerations"
+      "side_effects": "List of side effects associated with the medication"
     }}
     // Continue listing medications as needed
   ]
@@ -34,7 +36,7 @@ prompt = PromptTemplate.from_template(prompt_template)
 chain = prompt | llm
 
 
-def generate_ingredient_recommendation(medical_history: str, current_diagnosis: str) -> list[Suggestion]:
+def generate_ingredient_recommendation(medical_history: str, current_diagnosis: str) -> list[IngredientSuggestion]:
     print("[generate_ingredient_recommendation] start: ")
     print("[generate_ingredient_recommendation] medical_history")
     print(medical_history)
@@ -48,7 +50,7 @@ def generate_ingredient_recommendation(medical_history: str, current_diagnosis: 
         print("[generate_ingredient_recommendation] response.content is not str")
         return []
 
-    suggestions = parse_suggestions("ingredients", response.content)
+    suggestions = parse_ingredient_suggestions("ingredients", response.content)
 
     return suggestions
 

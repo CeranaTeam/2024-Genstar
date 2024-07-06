@@ -8,4 +8,4 @@ api_key = os.getenv("OPENAI_API_KEY")
 if api_key is None:
     raise Exception("OPENAI_API_KEY not set")
 
-llm = ChatOpenAI(model_name="gpt-4-turbo", api_key=api_key)
+llm = ChatOpenAI(model_name="gpt-4o", api_key=api_key)
