@@ -63,27 +63,29 @@ export default function SummarySection() {
   const { summary, setSummary, loading, generate } = useSummary()
 
   return (
-    <div className="grid gap-4 grid-cols-2 border p-2 rounded">
-      <Button onClick={() => generate(stringOfAll)} disabled={loading}><TextIcon className="w-4 h-4 mr-2" />{ !loading ? `總結病例` : <Loader2 className="animate-spin" /> }</Button>
-      <Dialog>
-        <DialogTrigger asChild>
-          <Button variant="outline"><FilePenLine className="w-4 h-4 mr-2" />編輯</Button>
-        </DialogTrigger>
-        <DialogContent className="sm:max-w-[800px]">
-          <DialogHeader>
-            <DialogTitle>Edit profile</DialogTitle>
-            <DialogDescription>
+    <div className="border p-2 rounded">
+      <div className="grid gap-4 grid-cols-2">
+        <Button onClick={() => generate(stringOfAll)} disabled={loading}><TextIcon className="w-4 h-4 mr-2" />{ !loading ? `總結病例` : <Loader2 className="animate-spin" /> }</Button>
+        <Dialog>
+          <DialogTrigger asChild>
+            <Button variant="outline"><FilePenLine className="w-4 h-4 mr-2" />編輯</Button>
+          </DialogTrigger>
+          <DialogContent className="sm:max-w-[800px]">
+            <DialogHeader>
+              <DialogTitle>Edit profile</DialogTitle>
+              <DialogDescription>
             Make changes to your profile here. Click save when you're done.
-            </DialogDescription>
-          </DialogHeader>
-          <MarkdownEditor 
-            className="w-[750px]"
-            height="600px"
-            value={summary}
-            onChange={setSummary}
-          />
-        </DialogContent>
-      </Dialog>
+              </DialogDescription>
+            </DialogHeader>
+            <MarkdownEditor 
+              className="w-[750px]"
+              height="600px"
+              value={summary}
+              onChange={setSummary}
+            />
+          </DialogContent>
+        </Dialog>
+      </div>
       <MarkdownPreviewer source={summary} />
     </div>
   )
