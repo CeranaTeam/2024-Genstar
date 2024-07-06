@@ -5,4 +5,4 @@ class Suggestion(BaseModel):
     reason: str
 
 class IngredientSuggestion(Suggestion):
-    side_effects: str
+    side_effect: str

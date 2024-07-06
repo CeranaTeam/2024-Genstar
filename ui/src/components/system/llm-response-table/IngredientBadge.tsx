@@ -126,7 +126,7 @@ const IngredientBadge = (
                 <HoverCardTrigger>{item.name}</HoverCardTrigger>
                 <HoverCardContent className="w-max-[300px]">
                   {item.reason} <br />
-                  {item.side_effects ? `Side Effects: ${item.side_effects}` : null}
+                  {item.side_effect ? `Side Effects: ${item.side_effect}` : null}
                 </HoverCardContent>
               </HoverCard>
             </Badge>

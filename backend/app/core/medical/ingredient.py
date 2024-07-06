@@ -16,12 +16,12 @@ Output: Recommended drug ingredients with reason and side effects (in JSON forma
     {{
       "name": "Medication name",
       "reason": "Detailed justification focusing on safety, efficacy, and patient-specific considerations"
-      "side_effects": "List of side effects associated with the medication"
+      "side_effect": "List of side effects associated with the medication"
     }},
     {{
       "name": "Medication name",
       "reason": "Detailed justification focusing on safety, efficacy, and patient-specific considerations"
-      "side_effects": "List of side effects associated with the medication"
+      "side_effect": "List of side effects associated with the medication"
     }}
     // Continue listing medications as needed
   ]

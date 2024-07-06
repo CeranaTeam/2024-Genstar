@@ -3,7 +3,7 @@ import { createContext, useState } from 'react';
 export type ResponseReasonInfo = {
   name: string;
   reason: string;
-side_effects?: string;
+side_effect?: string;
 };
 
 export type SymptomContextInfo = {

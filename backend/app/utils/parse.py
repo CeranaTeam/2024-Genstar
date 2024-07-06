@@ -62,7 +62,7 @@ def parse_ingredient_suggestions(target:str, json_response: str) -> list[Ingredi
         # Parse the JSON data from the response
         json_data = json.loads(json_response)
         ingredients = json_data.get(target, []) 
-        suggestions = [IngredientSuggestion(name=ingredient['name'], reason=ingredient['reason'], side_effects=ingredient['side_effects']) for ingredient in ingredients]
+        suggestions = [IngredientSuggestion(name=ingredient['name'], reason=ingredient['reason'], side_effect=ingredient['side_effect']) for ingredient in ingredients]
         return suggestions
     except json.JSONDecodeError as e:
         print(f"Failed to decode JSON: {e}")
