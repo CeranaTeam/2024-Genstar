@@ -36,22 +36,43 @@ export default function DrugSearcher() {
 
       const data: DrugsDTO = await response_symptoms.json();
       const convertedData: AutocompleteDrugInfo[] = data.drugs.map((drug) => {
-        return {
-          name: drug.drug_name,
-          id: drug.drug_code,
-          std_qty: drug.drug_std_qty,
-          std_unit: drug.drug_std_unit,
-          dosage: drug.drug_dose,
-          compound: drug.mixture,
-          ingredients: drug.drug_ings.map((ing) => {
-            return {
-              name: ing.ing_name,
-              quantity: ing.ing_qty,
-              unit: ing.ing_unit,
-            }
-          }),
-          classify_name: drug.drug_classify_name,
-          manufacturer: drug.druggist_name,
+        if (drug.drug_std_qty === "0") {
+          return {
+            name: drug.drug_name,
+            id: drug.drug_code,
+            std_qty: drug.drug_ings.length > 0 ? drug.drug_ings[0].ing_qty : "0",
+            std_unit: drug.drug_ings.length > 0 ? drug.drug_ings[0].ing_unit : "null",
+            dosage: drug.drug_dose,
+            compound: drug.mixture,
+            ingredients: drug.drug_ings.map((ing) => {
+              return {
+                name: ing.ing_name,
+                quantity: ing.ing_qty,
+                unit: ing.ing_unit,
+              }
+            }),
+            classify_name: drug.drug_classify_name,
+            manufacturer: drug.druggist_name,
+          }
+        }
+        else {
+          return {
+            name: drug.drug_name,
+            id: drug.drug_code,
+            std_qty: drug.drug_std_qty,
+            std_unit: drug.drug_std_unit,
+            dosage: drug.drug_dose,
+            compound: drug.mixture,
+            ingredients: drug.drug_ings.map((ing) => {
+              return {
+                name: ing.ing_name,
+                quantity: ing.ing_qty,
+                unit: ing.ing_unit,
+              }
+            }),
+            classify_name: drug.drug_classify_name,
+            manufacturer: drug.druggist_name,
+          }
         }
       })
       console.log("convertedData", convertedData)
@@ -71,7 +92,7 @@ export default function DrugSearcher() {
   }, [debouncedInputText])
 
   return (
-    <Command filter={() => {return 1}}>
+    <Command filter={() => { return 1 }}>
       <CommandInput placeholder="Search Drugs by ingredients..."
         value={inputText} onValueChange={setInputText}
       />
