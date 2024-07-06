@@ -31,6 +31,7 @@ import {
 } from "@/components/ui/table"
 
 import { Button } from "@/components/ui/button"
+import { PlusIcon } from "lucide-react"
 
 type SymptomTableProps = {
   index: number
@@ -114,8 +115,6 @@ const IngredientBadge = (
 
   return (
     <>
-      <h2 className="text-xl">推薦使用成分</h2>
-
       {ingredientsContext[index] ? ingredientsContext[index].response.map((item, idx1) => (
         <Dialog key={idx1}>
           <DialogTrigger className="cursor-pointer" onClick={() => fetchDrugs(item.name)} asChild>
@@ -156,8 +155,9 @@ const IngredientBadge = (
                       <TableCell>{drug.compound}</TableCell>
                       <TableCell>
                         <Button
+                          className="bg-green-400 hover:bg-green-500"
                           onClick={() => addSelectedDrug(drug)}
-                          variant="outline">Add</Button>
+                        ><PlusIcon className="h-5 w-5" color="white" /></Button>
                       </TableCell>
                     </TableRow>
                   )

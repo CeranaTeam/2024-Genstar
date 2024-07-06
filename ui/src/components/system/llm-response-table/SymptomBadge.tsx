@@ -23,8 +23,6 @@ const SymptomBadge = (
 
   return (
     <>
-      <h2 className="text-xl">可能症狀</h2>
-
       {symptomsContext[index] ? symptomsContext[index].response.map((item, index) => (
         <Badge
           className="mr-2 mb-2 cursor-pointer"

@@ -91,7 +91,7 @@ export default function DiagnoseTextAreas() {
   }
 
   return (
-    <div className="mt-4 mb-4 border p-2">
+    <div className="mt-4 mb-4 border p-2 rounded">
       <h2 className="text-xl mb-2">紀錄</h2>
       <Textarea
         className="min-h-36"

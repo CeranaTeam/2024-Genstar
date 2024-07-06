@@ -54,7 +54,7 @@ export default function SummarySection() {
   const { summary, loading, generate } = useSummary()
 
   return (
-    <div className="border p-2">
+    <div className="border p-2 rounded">
       <Button onClick={() => generate(stringOfAll)} disabled={loading}>{ !loading ? `總結病例` : <Loader2 className="animate-spin" /> }</Button>
       <MarkdownPreviewer source={summary} />
     </div>
