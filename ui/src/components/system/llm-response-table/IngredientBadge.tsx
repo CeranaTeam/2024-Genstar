@@ -114,7 +114,7 @@ const IngredientBadge = (
 
   return (
     <>
-      <h2 className="text-xl">可能症狀</h2>
+      <h2 className="text-xl">推薦使用成分</h2>
 
       {ingredientsContext[index] ? ingredientsContext[index].response.map((item, idx1) => (
         <Dialog key={idx1}>
