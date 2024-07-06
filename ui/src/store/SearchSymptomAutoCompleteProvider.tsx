@@ -2,12 +2,12 @@ import { createContext, useState } from 'react';
 
 export type SearchSymptomAutoCompleteContextType = {
   searchSymptomText: string;
-  setSearchSymptomText: ((searchSymptom: string) => void) | undefined;
+  setSearchSymptomText: ((searchSymptom: string) => void);
 };
 
 export const SearchSymptomAutoCompleteContext = createContext<SearchSymptomAutoCompleteContextType>({
   searchSymptomText: "" as string,
-  setSearchSymptomText: undefined,
+  setSearchSymptomText: () => {},
 });
 
 type searchSearchSymptomAutoCompleteProviderProps = {

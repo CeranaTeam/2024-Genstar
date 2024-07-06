@@ -20,7 +20,7 @@ const SymptomTable = (
 ) => {
 
   const { symptomsContext } = useContext(LLMResponsesContext)
-  const { setSearchSymptom } = useSearchSymptom();
+  const { setSearchSymptomText } = useSearchSymptom();
 
   return (
     <>
@@ -35,7 +35,7 @@ const SymptomTable = (
         </TableHeader>
         <TableBody>
           {symptomsContext[index] ? symptomsContext[index].response.map((item, index) => (
-            <TableRow key={index} onClick={() => setSearchSymptom ? setSearchSymptom(item.name) : {} }>
+            <TableRow key={index} onClick={() => setSearchSymptomText ? setSearchSymptomText(item.name) : {} }>
               <TableCell>{item.name}</TableCell>
               <TableCell>{item.reason}</TableCell>
             </TableRow>

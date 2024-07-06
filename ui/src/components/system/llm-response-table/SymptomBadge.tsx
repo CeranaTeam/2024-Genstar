@@ -19,14 +19,14 @@ const SymptomBadge = (
 ) => {
 
   const { symptomsContext } = useContext(LLMResponsesContext)
-  const { setSearchSymptom } = useSearchSymptom();
+  const { setSearchSymptomText } = useSearchSymptom();
 
   return (
     <>
       {symptomsContext[index] ? symptomsContext[index].response.map((item, index) => (
         <Badge
           className="mr-2 mb-2 cursor-pointer"
-          key={index} onClick={() => setSearchSymptom ? setSearchSymptom(item.name) : {}}>
+          key={index} onClick={() => setSearchSymptomText ? setSearchSymptomText(item.name) : {}}>
           <HoverCard openDelay={0} closeDelay={0}>
             <HoverCardTrigger>{item.name}</HoverCardTrigger>
             <HoverCardContent className="w-max-[300px]">
