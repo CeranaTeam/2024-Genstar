@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState } from "react";
 import useDebounce from "@/hooks/debounce";
-import { SelectedSymptomDrugsContext } from "@/components/store/SelectedSymptomsDrugsProvider";
+import { SelectedSymptomDrugsContext } from "@/store/SelectedSymptomsDrugsProvider";
 import {
   Table,
   TableBody,
@@ -30,6 +30,8 @@ function SelectedDrugsTable() {
 
   const [drugs, setDrugs] = useState<AutocompleteDrugInfo[]>([]);
 
+  console.log("drugs:", drugs)
+
   const apiUrl = import.meta.env.VITE_API_URL;
   const fetchDrugs = async () => {
     try {
@@ -50,7 +52,7 @@ function SelectedDrugsTable() {
       }
 
       const data: DrugsDTO = await response_symptoms.json();
-      const convertwedData: AutocompleteDrugInfo[] = data.drugs.map((drug) => {
+      const convertedData: AutocompleteDrugInfo[] = data.drugs.map((drug) => {
         return {
           name: drug.drug_name,
           id: drug.drug_code,
@@ -69,8 +71,8 @@ function SelectedDrugsTable() {
           manufacturer: drug.druggist_name,
         }
       })
-
-      setDrugs(convertwedData);
+      console.log("convertedData", convertedData)
+      setDrugs(convertedData);
 
     } catch (error) {
       console.error("There was an error fetching the drugs:", error);
@@ -105,8 +107,9 @@ function SelectedDrugsTable() {
         <TableBody>
           <TableRow>
             <TableCell className="p-0">
-              <Command>
-                <CommandInput placeholder="Search Drug..."
+              {/* Disable the Command filter */}
+              <Command filter={() => {return 1}}>
+                <CommandInput placeholder="Search Drugs by ingredients..."
                   value={inputText} onValueChange={setInputText}
                 />
                 <CommandGroup>

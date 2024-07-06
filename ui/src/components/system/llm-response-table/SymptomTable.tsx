@@ -1,5 +1,6 @@
 import { useContext } from "react"
-import { LLMResponsesContext } from "@/components/store/LLMResponsesProvider"
+import { LLMResponsesContext } from "@/store/LLMResponsesProvider"
+import { useSearchSymptom } from "@/contexts/useSearchSymptom"
 
 import {
   Table,
@@ -19,6 +20,7 @@ const SymptomTable = (
 ) => {
 
   const { symptomsContext } = useContext(LLMResponsesContext)
+  const { setSearchSymptom } = useSearchSymptom();
 
   return (
     <>
@@ -33,7 +35,7 @@ const SymptomTable = (
         </TableHeader>
         <TableBody>
           {symptomsContext[index] ? symptomsContext[index].response.map((item, index) => (
-            <TableRow key={index}>
+            <TableRow key={index} onClick={() => setSearchSymptom ? setSearchSymptom(item.name) : {} }>
               <TableCell>{item.name}</TableCell>
               <TableCell>{item.reason}</TableCell>
             </TableRow>

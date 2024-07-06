@@ -1,7 +1,7 @@
-
 import { useContext, useEffect, useState } from "react";
 import useDebounce from "@/hooks/debounce";
-import { SelectedSymptomDrugsContext } from "@/components/store/SelectedSymptomsDrugsProvider";
+import { SelectedSymptomDrugsContext } from "@/store/SelectedSymptomsDrugsProvider";
+import { useSearchSymptom } from "@/contexts/useSearchSymptom";
 import {
   Table,
   TableBody,
@@ -24,7 +24,8 @@ import { Button } from "@/components/ui/button"
 
 function SelectedSymptomsTable() {
   const { selectedSymptoms, removeSelectedSymptom } = useContext(SelectedSymptomDrugsContext);
-  const [inputText, setInputText] = useState("");
+  const { searchSymptom } = useSearchSymptom();
+  const [inputText, setInputText] = useState(searchSymptom);
 
   const debouncedInputText = useDebounce(inputText, 500);
 
@@ -40,7 +41,7 @@ function SelectedSymptomsTable() {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ query: inputText }),
+        body: JSON.stringify({ query: debouncedInputText }),
       });
 
       if (!response_symptoms.ok) {
@@ -65,10 +66,14 @@ function SelectedSymptomsTable() {
   }
 
   useEffect(() => {
+    setInputText(searchSymptom)
+  }, [searchSymptom])
+
+  useEffect(() => {
     if (debouncedInputText) {
       fetchSymptoms();
     }
-    else{
+    else {
       setSymptoms([])
     }
   }, [debouncedInputText])
@@ -88,7 +93,8 @@ function SelectedSymptomsTable() {
         <TableBody>
           <TableRow>
             <TableCell className="p-0">
-              <Command>
+              {/* Disable the Command filter */}
+              <Command filter={() => { return 1 }}>
                 <CommandInput placeholder="Search Symptom..."
                   value={inputText} onValueChange={setInputText}
                 />

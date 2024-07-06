@@ -3,7 +3,7 @@ import Home from "@/pages/home"
 //import Login from "@/pages/login"
 //import ProtectedRoute from "@/lib/protected-routes"
 import Layout from "@/components/Layout"
-import LLMResponsesProvider from "./components/store/LLMResponsesProvider";
+import LLMResponsesProvider from "./store/LLMResponsesProvider";
 
 function App() {
 

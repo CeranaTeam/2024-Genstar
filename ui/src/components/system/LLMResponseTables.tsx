@@ -1,7 +1,9 @@
 import { useState, useContext, useEffect } from "react";
-import SymptomTable from "./llm-response-table/SymptomTable";
-import IngredientTable from "./llm-response-table/IngredientTable";
-import { LLMResponsesContext } from "@/components/store/LLMResponsesProvider";
+// import SymptomTable from "./llm-response-table/SymptomTable";
+import SymptomBadge from "./llm-response-table/SymptomBadge";
+// import IngredientTable from "./llm-response-table/IngredientTable";
+import IngredientBadge from "./llm-response-table/IngredientBadge";
+import { LLMResponsesContext } from "@/store/LLMResponsesProvider";
 
 
 import {
@@ -14,6 +16,7 @@ import {
 } from "@/components/ui/pagination"
 import SelectedSymptomsTable from "./selected-table/SymptomsTable";
 import SelectedDrugsTable from "./selected-table/DrugsTable";
+import SearchSymptomAutoCompleteProvider from "@/store/SearchSymptomAutoCompleteProvider";
 
 function LLMResponseTables() {
   const { count } = useContext(LLMResponsesContext);
@@ -27,29 +30,35 @@ function LLMResponseTables() {
 
   return (
     <>
-      <div className="border p-2 mb-4">
-        <div>
-          <SymptomTable index={symptomIndex !== 0 ? symptomIndex - 1 : 0} />
+      <SearchSymptomAutoCompleteProvider>
+        <div className="border p-2 mb-4">
+          <div>
+            {/* choose you display section */}
+            {/* <SymptomTable index={symptomIndex !== 0 ? symptomIndex - 1 : 0} /> */}
+            <SymptomBadge index={symptomIndex !== 0 ? symptomIndex - 1 : 0} />
+          </div>
+          <Pagination>
+            <PaginationContent>
+              <PaginationItem>
+                <PaginationPrevious onClick={() => setSymptomIndex(() => Math.max(0, symptomIndex - 1))} />
+              </PaginationItem>
+              <PaginationItem>
+                <PaginationLink>{symptomIndex === 0 ? 1 : symptomIndex} / {count === 0 ? 1 : count}</PaginationLink>
+              </PaginationItem>
+              <PaginationItem>
+                <PaginationNext onClick={() => setSymptomIndex(() => Math.min(count, symptomIndex + 1))} />
+              </PaginationItem>
+            </PaginationContent>
+          </Pagination>
+          <div>
+            <SelectedSymptomsTable />
+          </div>
         </div>
-        <Pagination>
-          <PaginationContent>
-            <PaginationItem>
-              <PaginationPrevious onClick={() => setSymptomIndex(() => Math.max(0, symptomIndex - 1))} />
-            </PaginationItem>
-            <PaginationItem>
-              <PaginationLink>{symptomIndex === 0 ? 1 : symptomIndex} / {count === 0 ? 1 : count}</PaginationLink>
-            </PaginationItem>
-            <PaginationItem>
-              <PaginationNext onClick={() => setSymptomIndex(() => Math.min(count, symptomIndex + 1))} />
-            </PaginationItem>
-          </PaginationContent>
-        </Pagination>
-        <div>
-          <SelectedSymptomsTable />
-        </div></div>
+      </SearchSymptomAutoCompleteProvider>
       <div className="border p-2 mb-4">
         <div>
-          <IngredientTable index={index !== 0 ? index - 1 : 0} />
+          {/* <IngredientTable index={index !== 0 ? index - 1 : 0} /> */}
+          <IngredientBadge index={index !== 0 ? index - 1 : 0} />
         </div>
         <Pagination>
           <PaginationContent>

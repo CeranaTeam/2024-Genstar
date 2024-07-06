@@ -1,7 +1,7 @@
 import { useEffect, useState, useContext } from "react"
 import useDebounce from "@/hooks/debounce"
 import { Textarea } from "@/components/ui/textarea"
-import { LLMResponsesContext, LLMResponsesContextType, ResponseReasonInfo } from "@/components/store/LLMResponsesProvider"
+import { LLMResponsesContext, LLMResponsesContextType, ResponseReasonInfo } from "@/store/LLMResponsesProvider"
 
 // This component is a text area that will be used to enter the subjective and objective description of the patient
 export default function DiagnoseTextAreas() {
