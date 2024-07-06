@@ -12,7 +12,11 @@ export type SymptomContextInfo = {
 
 export type IngredientContextInfo = {
   index: number;
-  response: ResponseReasonInfo[];
+  response: {
+    name: string;
+    reason: string;
+    side_effects: string;
+  }[]
 };
 
 export type LLMResponsesContextType = {

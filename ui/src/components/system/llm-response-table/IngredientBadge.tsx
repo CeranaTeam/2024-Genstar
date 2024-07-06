@@ -125,7 +125,8 @@ const IngredientBadge = (
               <HoverCard openDelay={0} closeDelay={0}>
                 <HoverCardTrigger>{item.name}</HoverCardTrigger>
                 <HoverCardContent className="w-max-[300px]">
-                  {item.reason}
+                  {item.reason} <br />
+                  {item.side_effects ? `Side Effects: ${item.side_effects}` : null}
                 </HoverCardContent>
               </HoverCard>
             </Badge>
