@@ -3,6 +3,7 @@ import { createContext, useState } from 'react';
 export type ResponseReasonInfo = {
   name: string;
   reason: string;
+side_effects?: string;
 };
 
 export type SymptomContextInfo = {
@@ -12,11 +13,7 @@ export type SymptomContextInfo = {
 
 export type IngredientContextInfo = {
   index: number;
-  response: {
-    name: string;
-    reason: string;
-    side_effects: string;
-  }[]
+  response: ResponseReasonInfo[]
 };
 
 export type LLMResponsesContextType = {
