@@ -30,7 +30,7 @@ function SelectedSymptomsTable() {
 
   const { addSelectedSymptom } = useContext(SelectedSymptomDrugsContext);
 
-  const [drugs, setDrugs] = useState<AutocompleteDiagnosisInfo[]>([]);
+  const [symptoms, setSymptoms] = useState<AutocompleteDiagnosisInfo[]>([]);
 
   const apiUrl = import.meta.env.VITE_API_URL;
   const fetchSymptoms = async () => {
@@ -57,7 +57,7 @@ function SelectedSymptomsTable() {
         }
       })
 
-      setDrugs(convertedData);
+      setSymptoms(convertedData);
 
     } catch (error) {
       console.error("There was an error fetching the symptoms:", error);
@@ -69,7 +69,7 @@ function SelectedSymptomsTable() {
       fetchSymptoms();
     }
     else{
-      setDrugs([])
+      setSymptoms([])
     }
   }, [debouncedInputText])
 
@@ -94,16 +94,16 @@ function SelectedSymptomsTable() {
                 />
                 <CommandGroup>
                   <CommandList>
-                    {drugs.map((drug, index) => (
+                    {symptoms.map((symptom, index) => (
                       <CommandItem
                         key={index}
-                        value={drug.english_name}
+                        value={symptom.english_name}
                         onSelect={() => {
                           setInputText("")
-                          addSelectedSymptom(drug)
+                          addSelectedSymptom(symptom)
                         }}
                       >
-                        {drug.english_name}
+                        {symptom.english_name}
                       </CommandItem>
                     ))}
                   </CommandList>
