@@ -40,6 +40,7 @@ type IngredientsDTO = {
   ingredient_suggestions: {
     name: string;
     reason: string;
+    side_effect: string;
   }[];
   message: string;
 };

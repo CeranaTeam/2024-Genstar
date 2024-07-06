@@ -67,6 +67,7 @@ export default function DiagnoseTextAreas() {
         return {
           name: ingredient.name,
           reason: ingredient.reason,
+          side_effect: ingredient.side_effect,
         }
       })
 
