@@ -45,6 +45,7 @@ const IngredientBadge = (
   const { addSelectedDrug } = useContext(SelectedSymptomDrugsContext);
 
   const [data, setData] = useState<AutocompleteDrugInfo[]>([]);
+  const [open, setOpen] = useState(false);
 
   const apiUrl = import.meta.env.VITE_API_URL
   const fetchDrugs = async (ingredient: string) => {
@@ -116,8 +117,8 @@ const IngredientBadge = (
   return (
     <>
       {ingredientsContext[index] ? ingredientsContext[index].response.map((item, idx1) => (
-        <Dialog key={idx1}>
-          <DialogTrigger className="cursor-pointer" onClick={() => fetchDrugs(item.name)} asChild>
+        <Dialog key={idx1} open={open} onOpenChange={setOpen}>
+          <DialogTrigger className="cursor-pointer" onClick={() => fetchDrugs(item.name)}>
             <Badge
               className="mr-2 mb-2 cursor-pointer"
               key={index}
@@ -157,7 +158,10 @@ const IngredientBadge = (
                       <TableCell>
                         <Button
                           className="bg-green-400 hover:bg-green-500"
-                          onClick={() => addSelectedDrug(drug)}
+                          onClick={() => {
+                            addSelectedDrug(drug)
+                            setOpen(false)
+                          }}
                         ><PlusIcon className="h-5 w-5" color="white" /></Button>
                       </TableCell>
                     </TableRow>
