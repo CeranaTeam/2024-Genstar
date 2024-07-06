@@ -17,23 +17,31 @@ export type IngredientContextInfo = {
 
 export type LLMResponsesContextType = {
   symptomsContext: SymptomContextInfo[];
+  isSymptomContextLoading: number;
   ingredientsContext: IngredientContextInfo[];
+  isIngredientContextLoading: number;
   count: number;
   addSymptomContext: (symptomContext: SymptomContextInfo) => void;
   updateSymptomContext: (index: number, response: ResponseReasonInfo[]) => void;
   addIngredientContext: (ingredientsContext: IngredientContextInfo) => void;
   updateIngredientContext: (index: number, response: ResponseReasonInfo[]) => void;
+  setSymptomContextLoading: (loading: number | ((prev: number) => number)) => void;
+  setIngredientContextLoading: (loading: number | ((prev: number) => number)) => void;
 };
 
 export const LLMResponsesContext = createContext<LLMResponsesContextType>(
   {
     symptomsContext: [],
+    isSymptomContextLoading: 0,
     ingredientsContext: [],
+    isIngredientContextLoading: 0,
     count: 0,
     addSymptomContext: () => { },
     updateSymptomContext: () => { },
     addIngredientContext: () => { },
     updateIngredientContext: () => { },
+    setSymptomContextLoading: () => {},
+    setIngredientContextLoading: () => {},
   }
 )
 
@@ -41,6 +49,8 @@ const LLMResponsesProvider: React.FC<{ children: React.ReactNode }> = ({ childre
   const [symptomsContext, setSymptomsContext] = useState<SymptomContextInfo[]>([]);
   const [ingredientsContext, setIngredientsContext] = useState<IngredientContextInfo[]>([]);
   const [count, setCount] = useState(0);
+  const [isSymptomContextLoading, setSymptomContextLoading] = useState(0);
+  const [isIngredientContextLoading, setIngredientContextLoading] = useState(0);
 
   const addSymptomContext = (symptomContext: SymptomContextInfo) => {
     const insertIndex = symptomsContext.findIndex((response) => response.index > symptomContext.index);
@@ -85,6 +95,7 @@ const LLMResponsesProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     <LLMResponsesContext.Provider value={{
       symptomsContext, ingredientsContext, count,
       addSymptomContext, updateSymptomContext, addIngredientContext, updateIngredientContext
+      , isSymptomContextLoading, isIngredientContextLoading, setSymptomContextLoading, setIngredientContextLoading
     }} >
       {children}
     </LLMResponsesContext.Provider>

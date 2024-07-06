@@ -8,14 +8,15 @@ export default function DiagnoseTextAreas() {
   const [text, setText] = useState("")
   const debouncedSearch = useDebounce(text, 1000) // After typing, start to count the time. Then, after one second, it will trigger the useEffect
 
-  const { addSymptomContext } = useContext(LLMResponsesContext) as LLMResponsesContextType
-  const { addIngredientContext } = useContext(LLMResponsesContext) as LLMResponsesContextType
+  const { addSymptomContext, setSymptomContextLoading } = useContext(LLMResponsesContext) as LLMResponsesContextType
+  const { addIngredientContext, setIngredientContextLoading } = useContext(LLMResponsesContext) as LLMResponsesContextType
   const [currIndex, setCurrIndex] = useState(0)
 
   const apiUrl = import.meta.env.VITE_API_URL
 
   const fetchSymptoms = async () => {
     try {
+      setSymptomContextLoading((prev: number) => prev + 1)
       const response = await fetch(`${apiUrl}/generate/diagnosis`, {
         method: "POST",
         headers: {
@@ -40,11 +41,14 @@ export default function DiagnoseTextAreas() {
       addSymptomContext({ index: currIndex, response: convertedData });
     } catch (error) {
       console.error("There was an error fetching the diagnosis:", error);
+    } finally {
+      setSymptomContextLoading((prev: number) => prev - 1)
     }
   }
 
   const fetchIngredients = async () => {
     try {
+      setIngredientContextLoading((prev: number) => prev + 1)
       const response = await fetch(`${apiUrl}/generate/ingredient`, {
         method: "POST",
         headers: {
@@ -70,6 +74,8 @@ export default function DiagnoseTextAreas() {
       addIngredientContext({ index: currIndex, response: convertedData });
     } catch (error) {
       console.error("There was an error fetching the ingredient:", error);
+    } finally {
+      setIngredientContextLoading((prev: number) => prev - 1)
     }
   }
 
