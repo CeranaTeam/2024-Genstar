@@ -61,6 +61,7 @@ export default function SummarySection() {
   }, [selectedSymptoms, selectedDrugs])
 
   const { summary, setSummary, loading, generate } = useSummary()
+  document.documentElement.setAttribute('data-color-mode', 'light')
 
   return (
     <div className="border p-2 rounded">
