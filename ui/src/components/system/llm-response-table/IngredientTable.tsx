@@ -1,6 +1,6 @@
 import { useContext, useState } from "react"
-import { LLMResponsesContext } from "@/components/store/LLMResponsesProvider"
-import { SelectedSymptomDrugsContext } from "@/components/store/SelectedSymptomsDrugsProvider"
+import { LLMResponsesContext } from "@/store/LLMResponsesProvider"
+import { SelectedSymptomDrugsContext } from "@/store/SelectedSymptomsDrugsProvider"
 import {
   Table,
   TableBody,

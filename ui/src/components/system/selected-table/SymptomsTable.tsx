@@ -1,7 +1,7 @@
-
 import { useContext, useEffect, useState } from "react";
 import useDebounce from "@/hooks/debounce";
-import { SelectedSymptomDrugsContext } from "@/components/store/SelectedSymptomsDrugsProvider";
+import { SelectedSymptomDrugsContext } from "@/store/SelectedSymptomsDrugsProvider";
+import { useSearchSymptom } from "@/contexts/useSearchSymptom";
 import {
   Table,
   TableBody,
@@ -24,13 +24,14 @@ import { Button } from "@/components/ui/button"
 
 function SelectedSymptomsTable() {
   const { selectedSymptoms, removeSelectedSymptom } = useContext(SelectedSymptomDrugsContext);
-  const [inputText, setInputText] = useState("");
+  const { searchSymptom } = useSearchSymptom();
+  const [inputText, setInputText] = useState(searchSymptom);
 
   const debouncedInputText = useDebounce(inputText, 500);
 
   const { addSelectedSymptom } = useContext(SelectedSymptomDrugsContext);
 
-  const [drugs, setDrugs] = useState<AutocompleteDiagnosisInfo[]>([]);
+  const [symptoms, setSymptoms] = useState<AutocompleteDiagnosisInfo[]>([]);
 
   const apiUrl = import.meta.env.VITE_API_URL;
   const fetchSymptoms = async () => {
@@ -40,7 +41,7 @@ function SelectedSymptomsTable() {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ query: inputText }),
+        body: JSON.stringify({ query: debouncedInputText }),
       });
 
       if (!response_symptoms.ok) {
@@ -57,7 +58,7 @@ function SelectedSymptomsTable() {
         }
       })
 
-      setDrugs(convertedData);
+      setSymptoms(convertedData);
 
     } catch (error) {
       console.error("There was an error fetching the symptoms:", error);
@@ -65,11 +66,15 @@ function SelectedSymptomsTable() {
   }
 
   useEffect(() => {
+    setInputText(searchSymptom)
+  }, [searchSymptom])
+
+  useEffect(() => {
     if (debouncedInputText) {
       fetchSymptoms();
     }
-    else{
-      setDrugs([])
+    else {
+      setSymptoms([])
     }
   }, [debouncedInputText])
 
@@ -88,22 +93,23 @@ function SelectedSymptomsTable() {
         <TableBody>
           <TableRow>
             <TableCell className="p-0">
-              <Command>
+              {/* Disable the Command filter */}
+              <Command filter={() => { return 1 }}>
                 <CommandInput placeholder="Search Symptom..."
                   value={inputText} onValueChange={setInputText}
                 />
                 <CommandGroup>
                   <CommandList>
-                    {drugs.map((drug, index) => (
+                    {symptoms.map((symptom, index) => (
                       <CommandItem
                         key={index}
-                        value={drug.english_name}
+                        value={symptom.english_name}
                         onSelect={() => {
                           setInputText("")
-                          addSelectedSymptom(drug)
+                          addSelectedSymptom(symptom)
                         }}
                       >
-                        {drug.english_name}
+                        {symptom.english_name}
                       </CommandItem>
                     ))}
                   </CommandList>

@@ -1,7 +1,7 @@
 import { useState, useMemo, useContext } from 'react'
 import { Button } from '@/components/ui/button'
 import MarkdownPreviewer from '@/components/ui/markdown-previewer';
-import { SelectedSymptomDrugsContext } from '@/components/store/SelectedSymptomsDrugsProvider'
+import { SelectedSymptomDrugsContext } from '@/store/SelectedSymptomsDrugsProvider'
 import { Loader2 } from 'lucide-react';
 
 const useSummary = (): { summary: string, loading: boolean, error: string, generate: (context: string) => void } => {
