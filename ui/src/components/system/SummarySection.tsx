@@ -1,10 +1,19 @@
 import { useState, useMemo, useContext } from 'react'
 import { Button } from '@/components/ui/button'
 import MarkdownPreviewer from '@/components/ui/markdown-previewer';
+import MarkdownEditor from '@uiw/react-markdown-editor';
 import { SelectedSymptomDrugsContext } from '@/store/SelectedSymptomsDrugsProvider'
-import { Loader2 } from 'lucide-react';
+import { Loader2, TextIcon, FilePenLine } from 'lucide-react';
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog"
 
-const useSummary = (): { summary: string, loading: boolean, error: string, generate: (context: string) => void } => {
+const useSummary = (): { summary: string, setSummary: (context: string) => void, loading: boolean, error: string, generate: (context: string) => void } => {
   const [summary, setSummary] = useState('')
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
@@ -34,7 +43,7 @@ const useSummary = (): { summary: string, loading: boolean, error: string, gener
     }
   }
 
-  return { summary, loading, error, generate: generateSummary }
+  return { summary, setSummary, loading, error, generate: generateSummary }
 }
 
 export default function SummarySection() {
@@ -51,11 +60,30 @@ export default function SummarySection() {
     return res
   }, [selectedSymptoms, selectedDrugs])
 
-  const { summary, loading, generate } = useSummary()
+  const { summary, setSummary, loading, generate } = useSummary()
 
   return (
-    <div className="border p-2 rounded">
-      <Button onClick={() => generate(stringOfAll)} disabled={loading}>{ !loading ? `總結病例` : <Loader2 className="animate-spin" /> }</Button>
+    <div className="grid gap-4 grid-cols-2 border p-2 rounded">
+      <Button onClick={() => generate(stringOfAll)} disabled={loading}><TextIcon className="w-4 h-4 mr-2" />{ !loading ? `總結病例` : <Loader2 className="animate-spin" /> }</Button>
+      <Dialog>
+        <DialogTrigger asChild>
+          <Button variant="outline"><FilePenLine className="w-4 h-4 mr-2" />編輯</Button>
+        </DialogTrigger>
+        <DialogContent className="sm:max-w-[800px]">
+          <DialogHeader>
+            <DialogTitle>Edit profile</DialogTitle>
+            <DialogDescription>
+            Make changes to your profile here. Click save when you're done.
+            </DialogDescription>
+          </DialogHeader>
+          <MarkdownEditor 
+            className="w-[750px]"
+            height="600px"
+            value={summary}
+            onChange={setSummary}
+          />
+        </DialogContent>
+      </Dialog>
       <MarkdownPreviewer source={summary} />
     </div>
   )
