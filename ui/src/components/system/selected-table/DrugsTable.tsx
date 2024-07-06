@@ -1,4 +1,5 @@
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
+import useDebounce from "@/hooks/debounce";
 import { SelectedSymptomDrugsContext } from "@/components/store/SelectedSymptomsDrugsProvider";
 import {
   Table,
@@ -9,11 +10,82 @@ import {
   TableCell,
 } from "@/components/ui/table"
 
+import {
+  Command,
+  CommandList,
+  CommandGroup,
+  CommandInput,
+  CommandItem,
+} from "@/components/ui/command"
+
 import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
 
 function SelectedDrugsTable() {
   const { selectedDrugs, removeSelectedDrug } = useContext(SelectedSymptomDrugsContext);
+  const [inputText, setInputText] = useState("");
+
+  const debouncedInputText = useDebounce(inputText, 500);
+
+  const { addSelectedDrug } = useContext(SelectedSymptomDrugsContext);
+
+  const [drugs, setDrugs] = useState<AutocompleteDrugInfo[]>([]);
+
+  const apiUrl = import.meta.env.VITE_API_URL;
+  const fetchDrugs = async () => {
+    try {
+      const response_symptoms = await fetch(`${apiUrl}/autocomplete/drug`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          query: inputText,
+          page_size: 10,
+          page: 1,
+        }),
+      });
+
+      if (!response_symptoms.ok) {
+        throw new Error("Failed to fetch symptoms");
+      }
+
+      const data: DrugsDTO = await response_symptoms.json();
+      const convertwedData: AutocompleteDrugInfo[] = data.drugs.map((drug) => {
+        return {
+          name: drug.drug_name,
+          id: drug.drug_code,
+          std_qty: drug.drug_std_qty,
+          std_unit: drug.drug_std_unit,
+          dosage: drug.drug_dose,
+          compound: drug.mixture,
+          ingredients: drug.drug_ings.map((ing) => {
+            return {
+              name: ing.ing_name,
+              quantity: ing.ing_qty,
+              unit: ing.ing_unit,
+            }
+          }),
+          classify_name: drug.drug_classify_name,
+          manufacturer: drug.druggist_name,
+        }
+      })
+
+      setDrugs(convertwedData);
+
+    } catch (error) {
+      console.error("There was an error fetching the drugs:", error);
+    }
+  }
+
+  useEffect(() => {
+    if (debouncedInputText) {
+      fetchDrugs();
+    }
+    else {
+      setDrugs([])
+    }
+  }, [debouncedInputText])
+
   return (
     <>
       <h2 className="text-xl">使用藥物</h2>
@@ -33,8 +105,27 @@ function SelectedDrugsTable() {
         <TableBody>
           <TableRow>
             <TableCell className="p-0">
-              {/* [TODO] Should be replace to search with auto-complete */}
-              <Input type="text" placeholder="Add drug by typing its name in manual" />
+              <Command>
+                <CommandInput placeholder="Search Drug..."
+                  value={inputText} onValueChange={setInputText}
+                />
+                <CommandGroup>
+                  <CommandList>
+                    {drugs.map((drug, index) => (
+                      <CommandItem
+                        key={index}
+                        value={drug.name}
+                        onSelect={() => {
+                          setInputText("")
+                          addSelectedDrug(drug)
+                        }}
+                      >
+                        {drug.name}
+                      </CommandItem>
+                    ))}
+                  </CommandList>
+                </CommandGroup>
+              </Command>
             </TableCell>
           </TableRow>
           {selectedDrugs.map((drug, index) => (
