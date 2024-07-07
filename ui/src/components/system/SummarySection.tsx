@@ -29,7 +29,7 @@ const useSummary = (): { summary: string, setSummary: (context: string) => void,
         body: JSON.stringify({ context })
       })
 
-      if(!response.ok) {
+      if (!response.ok) {
         throw new Error('Failed to fetch summary')
       }
 
@@ -47,20 +47,20 @@ const useSummary = (): { summary: string, setSummary: (context: string) => void,
 }
 
 export default function SummarySection() {
-  const { selectedSymptoms, selectedDrugs, selectedDrugsTiming, selectedDrugsUsage } = useContext(SelectedSymptomDrugsContext);
-  
+  const { selectedSymptoms, selectedDrugs, selectedDrugsUsage } = useContext(SelectedSymptomDrugsContext);
+
   const stringOfAll = useMemo(() => {
-  // make both selectedSymptoms and selectedDrugs to string context for summary
+    // make both selectedSymptoms and selectedDrugs to string context for summary
     console.log(selectedSymptoms)
     console.log(selectedDrugs)
-    console.log(selectedDrugsTiming)
+    //console.log(selectedDrugsTiming)
     console.log(selectedDrugsUsage)
-    const selectedSymptomsString = selectedSymptoms.map((symptom) => symptom.english_name ).join(', ')
-    const selectedDrugsString = selectedDrugs.map((drug, idx) => `${drug.name} ${selectedDrugsUsage[idx]} ${selectedDrugsTiming[idx]}`).join(', ')
+    const selectedSymptomsString = selectedSymptoms.map((symptom) => symptom.english_name).join(', ')
+    const selectedDrugsString = selectedDrugs.map((drug, idx) => `${drug.name} ${selectedDrugsUsage[idx]}`).join(', ')
     const res = `# 紀錄:\n ${localStorage.getItem('diagnosis')}\n\n# 症狀:\n ${selectedSymptomsString}\n\n# 藥物:\n ${selectedDrugsString}`
     console.log(res)
     return res
-  }, [selectedSymptoms, selectedDrugs, selectedDrugsTiming, selectedDrugsUsage])
+  }, [selectedSymptoms, selectedDrugs, selectedDrugsUsage])
 
   const { summary, setSummary, loading, generate } = useSummary()
   document.documentElement.setAttribute('data-color-mode', 'light')
@@ -68,7 +68,7 @@ export default function SummarySection() {
   return (
     <div className="border p-2 rounded">
       <div className="grid gap-4 grid-cols-2">
-        <Button onClick={() => generate(stringOfAll)} disabled={loading}><TextIcon className="w-4 h-4 mr-2" />{ !loading ? `總結病例` : <Loader2 className="animate-spin" /> }</Button>
+        <Button onClick={() => generate(stringOfAll)} disabled={loading}><TextIcon className="w-4 h-4 mr-2" />{!loading ? `總結病例` : <Loader2 className="animate-spin" />}</Button>
         <Dialog>
           <DialogTrigger asChild>
             <Button variant="outline"><FilePenLine className="w-4 h-4 mr-2" />編輯</Button>
@@ -77,10 +77,10 @@ export default function SummarySection() {
             <DialogHeader>
               <DialogTitle>Edit profile</DialogTitle>
               <DialogDescription>
-            Make changes to your profile here. Click save when you're done.
+                Make changes to your profile here. Click save when you're done.
               </DialogDescription>
             </DialogHeader>
-            <MarkdownEditor 
+            <MarkdownEditor
               className="w-[750px]"
               height="600px"
               value={summary}

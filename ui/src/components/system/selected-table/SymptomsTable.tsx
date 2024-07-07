@@ -9,6 +9,8 @@ import {
   TableCell,
 } from "@/components/ui/table"
 import { Button } from "@/components/ui/button"
+import { XIcon } from "lucide-react"
+
 
 function SelectedSymptomsTable() {
   const { selectedSymptoms, removeSelectedSymptom } = useContext(SelectedSymptomDrugsContext);
@@ -34,7 +36,7 @@ function SelectedSymptomsTable() {
               <TableCell>
                 <Button
                   onClick={() => removeSelectedSymptom(String(index))}
-                  variant="destructive">Remove</Button>
+                  variant="destructive"><XIcon className="w-4 h-4" /></Button>
               </TableCell>
             </TableRow>
           ))}

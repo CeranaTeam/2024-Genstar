@@ -21,29 +21,29 @@ import {
 import { Input } from "@/components/ui/input"
 
 function SelectedDrugsTable() {
-  const { selectedDrugs, selectedDrugsTiming, selectedDrugsUsage,
-    removeSelectedDrug, setSelectedDrugsTiming, setSelectedDrugsUsage } = useContext(SelectedSymptomDrugsContext);
+  const { selectedDrugs, selectedDrugsUsage,
+    removeSelectedDrug, setSelectedDrugsUsage } = useContext(SelectedSymptomDrugsContext);
 
-  const [inputTimings, setInputTimings] = useState<string[]>(selectedDrugsTiming);
+  //const [inputTimings, setInputTimings] = useState<string[]>(selectedDrugsTiming);
   const [inputUsages, setInputUsages] = useState<string[]>(selectedDrugsUsage);
 
-  useEffect(() => {
-    setInputTimings(selectedDrugsTiming);
-    setInputUsages(selectedDrugsUsage);
-  }, [selectedDrugsTiming, selectedDrugsUsage])
+  //useEffect(() => {
+  //  setInputTimings(selectedDrugsTiming);
+  //  setInputUsages(selectedDrugsUsage);
+  //}, [selectedDrugsTiming, selectedDrugsUsage])
 
-  const handleTimingChange = (idx: string, timing: string) => {
-    console.log("timing", idx, timing);
-    const newInputTimings = [...inputTimings];
-    newInputTimings[parseInt(idx)] = timing;
-    // setInputTimings(newInputTimings);
-    setSelectedDrugsTiming(newInputTimings);
-  }
+  //const handleTimingChange = (idx: string, timing: string) => {
+  //  console.log("timing", idx, timing);
+  //  const newInputTimings = [...inputTimings];
+  //  newInputTimings[parseInt(idx)] = timing;
+  //  // setInputTimings(newInputTimings);
+  //  setSelectedDrugsTiming(newInputTimings);
+  //}
 
   const handleUsageChange = (idx: string, usage: string) => {
     const newInputUsages = [...inputUsages];
     newInputUsages[parseInt(idx)] = usage;
-    // setInputUsages(newInputUsages);
+    setInputUsages(newInputUsages);
     setSelectedDrugsUsage(newInputUsages);
   }
 
@@ -56,7 +56,7 @@ function SelectedDrugsTable() {
             <TableHead>Drug Name</TableHead>
             {/*<TableHead>藥物名稱</TableHead>*/}
             {/* <TableHead>Dosage</TableHead> */}
-            <TableHead>使用劑量</TableHead>
+            {/*<TableHead>使用劑量</TableHead>*/}
             {/* <TableHead>Quantity</TableHead>
             <TableHead>Unit</TableHead>
             <TableHead>Compound</TableHead> */}
@@ -99,7 +99,7 @@ function SelectedDrugsTable() {
                   <TableCell>
                     <Input
                       key={index}
-                      placeholder="e.g. 1顆 / 5mg / 10ml"
+                      placeholder="e.g. 三餐飯後服用 副作用"
                       value={inputUsages[index] ? inputUsages[index] : ""}
                       onChange={(e) => handleUsageChange(String(index), e.target.value)}
                     ></Input>
@@ -108,14 +108,14 @@ function SelectedDrugsTable() {
                   <TableCell>{drug.std_qty}</TableCell>
                   <TableCell>{drug.std_unit}</TableCell>
                   <TableCell>{drug.compound}</TableCell> */}
-                  <TableCell>
+                  {/*<TableCell>
                     <Input
                       key={index}
                       placeholder="e.g. 三餐飯後服用"
                       value={inputTimings[index] ? inputTimings[index] : ""}
                       onChange={(e) => handleTimingChange(String(index), e.target.value)}
                     ></Input>
-                  </TableCell>
+                  </TableCell>*/}
                   <TableCell>
                     <Button
                       onClick={() => removeSelectedDrug(String(index))}
@@ -136,7 +136,7 @@ function SelectedDrugsTable() {
             </HoverCard>
           ))}
         </TableBody>
-      </Table>
+      </Table >
     </>
   )
 }
