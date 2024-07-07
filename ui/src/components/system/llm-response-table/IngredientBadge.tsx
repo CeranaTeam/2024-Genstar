@@ -125,7 +125,7 @@ const IngredientBadge = (
             >
               <HoverCard openDelay={0} closeDelay={0}>
                 <HoverCardTrigger>{item.name}</HoverCardTrigger>
-                <HoverCardContent className="w-max-[300px]">
+                <HoverCardContent className="text-left">
                   {item.reason} <br /><br />
                   <span className="text-bold">Side Effects:</span> &nbsp;{item.side_effect}
                 </HoverCardContent>
@@ -174,7 +174,7 @@ const IngredientBadge = (
                             <li><span className="font-bold">Standard Qty:</span> {drug.std_qty} {drug.std_unit}</li>
                             <li><span className="font-bold">Classify Name:</span> {drug.classify_name}</li>
                             <li><span className="font-bold">Manufacturer:</span> {drug.manufacturer}</li>
-                            <li><span className="font-bold">Ingredients:</span> (<span className="text-gray-500">name/std_qty/std_unit)</span></li>
+                            <li><span className="font-bold">Ingredients:</span></li>
                             {drug.ingredients.map((ing, idx3) => {
                               return (
                                 <li key={idx3} className="pl-4">

@@ -29,7 +29,7 @@ const SymptomBadge = (
           key={index} onClick={() => setSearchSymptomText ? setSearchSymptomText(item.name) : {}}>
           <HoverCard openDelay={0} closeDelay={0}>
             <HoverCardTrigger>{item.name}</HoverCardTrigger>
-            <HoverCardContent className="w-max-[300px]">
+            <HoverCardContent>
               {item.reason}
             </HoverCardContent>
           </HoverCard>
