@@ -47,18 +47,20 @@ const useSummary = (): { summary: string, setSummary: (context: string) => void,
 }
 
 export default function SummarySection() {
-  const { selectedSymptoms, selectedDrugs } = useContext(SelectedSymptomDrugsContext);
+  const { selectedSymptoms, selectedDrugs, selectedDrugsTiming, selectedDrugsUsage } = useContext(SelectedSymptomDrugsContext);
   
   const stringOfAll = useMemo(() => {
   // make both selectedSymptoms and selectedDrugs to string context for summary
     console.log(selectedSymptoms)
     console.log(selectedDrugs)
-    const selectedSymptomsString = selectedSymptoms.map((symptom) => symptom.english_name).join(', ')
-    const selectedDrugsString = selectedDrugs.map((drug) => `${drug.name}`).join(', ')
+    console.log(selectedDrugsTiming)
+    console.log(selectedDrugsUsage)
+    const selectedSymptomsString = selectedSymptoms.map((symptom) => symptom.english_name ).join(', ')
+    const selectedDrugsString = selectedDrugs.map((drug, idx) => `${drug.name} ${selectedDrugsUsage[idx]} ${selectedDrugsTiming[idx]}`).join(', ')
     const res = `# 紀錄:\n ${localStorage.getItem('diagnosis')}\n\n# 症狀:\n ${selectedSymptomsString}\n\n# 藥物:\n ${selectedDrugsString}`
     console.log(res)
     return res
-  }, [selectedSymptoms, selectedDrugs])
+  }, [selectedSymptoms, selectedDrugs, selectedDrugsTiming, selectedDrugsUsage])
 
   const { summary, setSummary, loading, generate } = useSummary()
   document.documentElement.setAttribute('data-color-mode', 'light')

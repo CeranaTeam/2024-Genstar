@@ -4,7 +4,7 @@ import SymptomBadge from "./llm-response-table/SymptomBadge";
 // import IngredientTable from "./llm-response-table/IngredientTable";
 import IngredientBadge from "./llm-response-table/IngredientBadge";
 import { LLMResponsesContext } from "@/store/LLMResponsesProvider";
-import DrugSearcher from "@/components/system/selected-table/DrugSearcher";
+import DrugSearcher from "./selected-table/DrugSearcher";
 import SelectedSymptomsTable from "./selected-table/SymptomsTable";
 import SelectedDrugsTable from "./selected-table/DrugsTable";
 import SearchSymptomAutoCompleteProvider from "@/store/SearchSymptomAutoCompleteProvider";
