@@ -10,18 +10,19 @@ Current Diagnosis: {current_diagnosis}
 
 Output: Recommended drug ingredients with reason and side effects (in JSON format)
 
+Example: 
 ```json
 {{
   "ingredients": [
     {{
-      "name": "Medication name",
-      "reason": "Detailed justification focusing on safety, efficacy, and patient-specific considerations"
-      "side_effect": "List of side effects associated with the medication"
+      "name": "Tirofiban",
+      "reason": "Tirofiban is a glycoprotein IIb/IIIa inhibitor used to prevent platelet aggregation and thrombus formation in patients with acute coronary syndrome (ACS). Given the patient's symptoms of chest pain, ST elevation in leads III, II, aVF, and V4R, and history of smoking, he is likely experiencing a right ventricular myocardial infarction. Tirofiban can help reduce the risk of further ischemic events."
+      "side_effect": "Bleeding, thrombocytopenia, hypotension, nausea"
     }},
     {{
-      "name": "Medication name",
-      "reason": "Detailed justification focusing on safety, efficacy, and patient-specific considerations"
-      "side_effect": "List of side effects associated with the medication"
+      "name": "Atorvastatin",
+      "reason": "Atorvastatin is a statin that helps to lower cholesterol levels and stabilize atherosclerotic plaques. It is beneficial in the long-term management of patients with coronary artery disease to reduce the risk of future cardiovascular events."
+      "side_effect": "Myopathy, liver enzyme abnormalities, gastrointestinal symptoms"
     }}
     // Continue listing medications as needed
   ]
