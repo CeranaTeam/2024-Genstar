@@ -12,8 +12,8 @@ build_backend:
     - docker login -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD" $CI_REGISTRY
   script:
     - cd backend
-    - docker build -t yjack0000cs12/medicopilot-backend:$CI_COMMIT_REF_SLUG .
-    - docker push yjack0000cs12/medicopilot-frontend:$CI_COMMIT_REF_SLUG
+    - docker build -t yjack0000cs12/medicopilot-backend:$CI_COMMIT_REF_SLUG-$CI_PIPELINE_ID .
+    - docker push yjack0000cs12/medicopilot-frontend:$CI_COMMIT_REF_SLUG-$CI_PIPELINE_ID
   only:
     - dev
     - main
@@ -28,8 +28,8 @@ build_frontend:
     - docker login -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD" $CI_REGISTRY
   script:
     - cd ui
-    - docker build -t yjack0000cs12/medicopilot-frontend:$CI_COMMIT_REF_SLUG .
-    - docker push yjack0000cs12/medicopilot-frontend:$CI_COMMIT_REF_SLUG
+    - docker build -t yjack0000cs12/medicopilot-ui:$CI_COMMIT_REF_SLUG-$CI_PIPELINE_ID .
+    - docker push yjack0000cs12/medicopilot-ui:$CI_COMMIT_REF_SLUG-$CI_PIPELINE_ID
   only:
     - dev
     - main
