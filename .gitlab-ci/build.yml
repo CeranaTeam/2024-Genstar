@@ -1,4 +1,5 @@
 build_backend:
+  stage: build
   image: docker:24.0.5
   services:
     - docker:24.0.5-dind
@@ -14,6 +15,7 @@ build_backend:
     - main
 
 build_frontend:
+  stage: build
   image: docker:24.0.5
   services:
     - docker:24.0.5-dind
