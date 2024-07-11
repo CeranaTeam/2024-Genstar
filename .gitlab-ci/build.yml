@@ -13,7 +13,7 @@ build_backend:
   script:
     - cd backend
     - docker build -t yjack0000cs12/medicopilot-backend:$CI_COMMIT_REF_SLUG-$CI_PIPELINE_ID .
-    - docker push yjack0000cs12/medicopilot-frontend:$CI_COMMIT_REF_SLUG-$CI_PIPELINE_ID
+    - docker push yjack0000cs12/medicopilot-backend:$CI_COMMIT_REF_SLUG-$CI_PIPELINE_ID
   only:
     - dev
     - main
