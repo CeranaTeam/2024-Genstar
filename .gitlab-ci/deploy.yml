@@ -1,9 +1,8 @@
 deploy_compose_dev:
   stage: deploy
-  image: alpine:3.12
+  image: ruby:3.1
   script:
     - |
-      apk add --no-cache yq
       yq e '.services.backend.image = "yjack0000cs12/medicopilot-backend:$CI_COMMIT_REF_SLUG-$CI_PIPELINE_ID"' -i deploys/docker-compose-dev.yml
       yq e '.services.ui.image = "yjack0000cs12/medicopilot-ui:$CI_COMMIT_REF_SLUG-$CI_PIPELINE_ID"' -i deploys/docker-compose-dev.yml
       git add deploys/docker-compose-dev.yml
@@ -14,10 +13,9 @@ deploy_compose_dev:
 
 deploy_compose_prod:
   stage: deploy
-  image: alpine:3.12
+  image: ruby:3.1
   script:
     - |
-      apk add --no-cache yq
       yq e '.services.backend.image = "yjack0000cs12/medicopilot-backend:$CI_COMMIT_REF_SLUG-$CI_PIPELINE_ID"' -i deploys/docker-compose-prod.yml
       yq e '.services.ui.image = "yjack0000cs12/medicopilot-ui:$CI_COMMIT_REF_SLUG-$CI_PIPELINE_ID"' -i deploys/docker-compose-prod.yml
       git add deploys/docker-compose-prod.yml
