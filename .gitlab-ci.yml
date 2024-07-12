@@ -1,7 +1,9 @@
 stages:
   - build
   - lint-and-test
+  - deploy
 
 include:
   - local: '.gitlab-ci/build.yml'
   - local: '.gitlab-ci/lint-and-test.yml'
+  - local: '.gitlab-ci/deploy.yml'
